@@ -95,13 +95,20 @@ document.getElementById('book').innerHTML = storyHTMLData;
         });
 
         // ── Ghost Particles ──
+        const isMobile = window.innerWidth <= 768;
+
         function createParticle() {
+            // Cap particle generation on mobile
+            if (isMobile && document.querySelectorAll('.ghost-particle').length > 10) return;
+
             const container = document.getElementById('particlesContainer');
             const particle = document.createElement('div');
             particle.classList.add('ghost-particle');
 
             const types = ['type-orb', 'type-ember', 'type-mist'];
-            particle.classList.add(types[Math.floor(Math.random() * types.length)]);
+            // Don't spawn heavy mist particles on mobile
+            const availableTypes = isMobile ? ['type-orb', 'type-ember'] : types;
+            particle.classList.add(availableTypes[Math.floor(Math.random() * availableTypes.length)]);
 
             const size = Math.random() * 20 + 6;
             particle.style.width = size + 'px';
@@ -119,15 +126,16 @@ document.getElementById('book').innerHTML = storyHTMLData;
             container.appendChild(particle);
 
             setTimeout(() => {
-                particle.remove();
+                if (particle && particle.parentNode) particle.remove();
             }, (duration + 3) * 1000);
         }
 
-        // Create particles periodically
-        setInterval(createParticle, 800);
+        // Create particles periodically (slower on mobile)
+        setInterval(createParticle, isMobile ? 2500 : 800);
 
         // Create initial batch
-        for (let i = 0; i < 8; i++) {
+        const initialBatchSize = isMobile ? 3 : 8;
+        for (let i = 0; i < initialBatchSize; i++) {
             setTimeout(createParticle, i * 300);
         }
 
@@ -202,7 +210,8 @@ document.getElementById('book').innerHTML = storyHTMLData;
         const shapes3D = [];
         const geometryTypes = [getCubeGeometry, getPyramidGeometry, getOctahedronGeometry, getDiamondGeometry];
 
-        for (let i = 0; i < 14; i++) {
+        const shapeCount = isMobile ? 5 : 14;
+        for (let i = 0; i < shapeCount; i++) {
             const geoFn = geometryTypes[Math.floor(Math.random() * geometryTypes.length)];
             const size = Math.random() * 40 + 25;
             const colors = shapeColors[Math.floor(Math.random() * shapeColors.length)];
