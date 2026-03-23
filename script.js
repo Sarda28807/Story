@@ -309,20 +309,28 @@ document.getElementById('book').innerHTML = storyHTMLData;
         // ── Touch/Swipe support ──
         let touchStartX = 0;
         let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
 
         document.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
-        }, false);
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
 
         document.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
             handleSwipe();
-        }, false);
+        }, { passive: true });
 
         function handleSwipe() {
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) {
+            const diffX = touchStartX - touchEndX;
+            const diffY = touchStartY - touchEndY;
+            
+            // Require a strong horizontal drag (50px) and minimal vertical drag (less than 40px)
+            // This prevents regular vertical scrolling from accidentally turning the page!
+            if (Math.abs(diffX) > 50 && Math.abs(diffY) < 40) {
+                if (diffX > 0) {
                     nextPage(); // Swipe left = next
                 } else {
                     prevPage(); // Swipe right = prev
