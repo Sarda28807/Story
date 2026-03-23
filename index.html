@@ -13,6 +13,9 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
+        /* ═══════════════════════════════════════════
+           🌑 CSS RESET & CUSTOM PROPERTIES
+           ═══════════════════════════════════════════ */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -39,6 +42,9 @@
             --page-shadow: rgba(0, 0, 0, 0.6);
         }
 
+        /* ═══════════════════════════════════════════
+           🌙 BODY & ENVIRONMENT
+           ═══════════════════════════════════════════ */
         body {
             font-family: 'Crimson Text', Georgia, serif;
             background: var(--bg-dark);
@@ -48,6 +54,7 @@
             position: relative;
         }
 
+        /* Ambient fog overlay */
         body::before {
             content: '';
             position: fixed;
@@ -60,6 +67,9 @@
             z-index: 0;
         }
 
+        /* ═══════════════════════════════════════════
+           🔷 3D BACKGROUND CANVAS
+           ═══════════════════════════════════════════ */
         #shapesCanvas {
             position: fixed;
             top: 0;
@@ -70,6 +80,9 @@
             z-index: 0;
         }
 
+        /* ═══════════════════════════════════════════
+           👻 FLOATING GHOST PARTICLES
+           ═══════════════════════════════════════════ */
         .particles-container {
             position: fixed;
             inset: 0;
@@ -101,13 +114,22 @@
         }
 
         @keyframes floatParticle {
-            0% { opacity: 0; transform: translateY(0) translateX(0) scale(0.5); }
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0) scale(0.5);
+            }
             15% { opacity: 0.7; }
             50% { opacity: 0.4; }
             85% { opacity: 0.2; }
-            100% { opacity: 0; transform: translateY(-100vh) translateX(var(--drift)) scale(1.3); }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(var(--drift)) scale(1.3);
+            }
         }
 
+        /* ═══════════════════════════════════════════
+           🕯️ FLICKERING CANDLE GLOW
+           ═══════════════════════════════════════════ */
         .candle-glow {
             position: fixed;
             width: 300px;
@@ -129,6 +151,9 @@
             100% { opacity: 0.5; transform: scale(1.02); }
         }
 
+        /* ═══════════════════════════════════════════
+           📖 MAIN LAYOUT
+           ═══════════════════════════════════════════ */
         .story-wrapper {
             position: relative;
             z-index: 2;
@@ -137,6 +162,9 @@
             padding: 40px 20px 100px;
         }
 
+        /* ═══════════════════════════════════════════
+           🌹 HEADER / TITLE SECTION
+           ═══════════════════════════════════════════ */
         .story-header {
             text-align: center;
             padding: 60px 20px 50px;
@@ -233,7 +261,10 @@
             animation: heartbeat 2s ease-in-out infinite;
         }
 
-        .ornament-icon i { width: 18px; height: 18px; }
+        .ornament-icon i {
+            width: 18px;
+            height: 18px;
+        }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
@@ -243,8 +274,13 @@
             56% { transform: scale(1); }
         }
 
-        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
 
+        /* ═══════════════════════════════════════════
+           📚 BOOK CONTAINER (for page-turn)
+           ═══════════════════════════════════════════ */
         .book-container {
             perspective: 1800px;
             display: flex;
@@ -261,6 +297,9 @@
             transform-style: preserve-3d;
         }
 
+        /* ═══════════════════════════════════════════
+           📄 INDIVIDUAL PAGES
+           ═══════════════════════════════════════════ */
         .page {
             position: absolute;
             inset: 0;
@@ -284,6 +323,7 @@
             overflow-x: hidden;
         }
 
+        /* Soft inner glow overlay */
         .page::before {
             content: '';
             position: absolute;
@@ -295,6 +335,7 @@
             border-radius: inherit;
         }
 
+        /* Red bookmark ribbon on left edge */
         .page::after {
             content: '';
             position: absolute;
@@ -306,14 +347,43 @@
             border-radius: 4px 0 0 4px;
         }
 
-        .page.active { z-index: 10; transform: rotateY(0deg); opacity: 1; }
-        .page.turned { transform: rotateY(-160deg); opacity: 0; z-index: 5; pointer-events: none; }
-        .page.hidden { transform: rotateY(10deg); opacity: 0; z-index: 1; pointer-events: none; }
+        .page.active {
+            z-index: 10;
+            transform: rotateY(0deg);
+            opacity: 1;
+        }
 
-        .page::-webkit-scrollbar { width: 4px; }
-        .page::-webkit-scrollbar-track { background: transparent; }
-        .page::-webkit-scrollbar-thumb { background: rgba(196, 30, 58, 0.3); border-radius: 4px; }
+        .page.turned {
+            transform: rotateY(-160deg);
+            opacity: 0;
+            z-index: 5;
+            pointer-events: none;
+        }
 
+        .page.hidden {
+            transform: rotateY(10deg);
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Custom scrollbar for pages */
+        .page::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .page::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .page::-webkit-scrollbar-thumb {
+            background: rgba(196, 30, 58, 0.3);
+            border-radius: 4px;
+        }
+
+        /* ═══════════════════════════════════════════
+           🗓️ DAY HEADER INSIDE PAGE
+           ═══════════════════════════════════════════ */
         .day-header {
             text-align: center;
             margin-bottom: 35px;
@@ -338,7 +408,11 @@
             color: var(--pale-rose);
         }
 
-        .day-date-badge i { width: 14px; height: 14px; color: var(--blood-red); }
+        .day-date-badge i {
+            width: 14px;
+            height: 14px;
+            color: var(--blood-red);
+        }
 
         .day-number {
             font-family: 'Cinzel Decorative', serif;
@@ -366,17 +440,23 @@
         }
 
         .day-header-ornament .orn-dot {
-            width: 4px; height: 4px;
+            width: 4px;
+            height: 4px;
             background: var(--blood-red);
-            border-radius: 50%; opacity: 0.5;
+            border-radius: 50%;
+            opacity: 0.5;
         }
 
         .day-header-ornament .orn-line {
-            width: 40px; height: 1px;
+            width: 40px;
+            height: 1px;
             background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
             opacity: 0.4;
         }
 
+        /* ═══════════════════════════════════════════
+           📝 STORY CONTENT
+           ═══════════════════════════════════════════ */
         .story-content {
             font-family: 'Crimson Text', Georgia, serif;
             font-size: 1.15rem;
@@ -411,7 +491,9 @@
         .story-content .highlight::after {
             content: '';
             position: absolute;
-            bottom: -1px; left: 0; right: 0;
+            bottom: -1px;
+            left: 0;
+            right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--pale-rose), transparent);
             opacity: 0.4;
@@ -423,6 +505,336 @@
             text-shadow: 0 0 8px rgba(196, 30, 58, 0.2);
         }
 
+
+
+        /* ═══════════════════════════════════════════
+           💬 READER FEEDBACK SECTION
+           ═══════════════════════════════════════════ */
+        .reader-feedback {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(212, 160, 160, 0.12);
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .feedback-header i {
+            width: 20px;
+            height: 20px;
+            color: var(--rose-gold);
+            opacity: 0.7;
+        }
+
+        .feedback-header h3 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.1rem;
+            color: var(--pale-rose);
+            letter-spacing: 2px;
+        }
+
+        .feedback-name-gate {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            padding: 20px;
+            background: rgba(139, 0, 0, 0.06);
+            border: 1px solid rgba(196, 30, 58, 0.12);
+            border-radius: 12px;
+        }
+
+        .feedback-name-gate label {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        .feedback-name-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px 16px;
+            background: rgba(26, 26, 37, 0.6);
+            border: 1px solid rgba(212, 160, 160, 0.15);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            text-align: center;
+        }
+
+        .feedback-name-input:focus {
+            border-color: rgba(196, 30, 58, 0.4);
+        }
+
+        .feedback-name-input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .feedback-enter-btn {
+            padding: 8px 24px;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(45, 27, 61, 0.2));
+            border: 1px solid rgba(196, 30, 58, 0.3);
+            border-radius: 30px;
+            color: var(--pale-rose);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .feedback-enter-btn:hover {
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.3), rgba(45, 27, 61, 0.25));
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .feedback-form {
+            display: none;
+        }
+
+        .feedback-form.active {
+            display: block;
+        }
+
+        .feedback-user-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.15), rgba(45, 27, 61, 0.1));
+            border: 1px solid rgba(196, 30, 58, 0.2);
+            border-radius: 20px;
+            padding: 5px 14px;
+            margin-bottom: 16px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: var(--rose-gold);
+            letter-spacing: 1px;
+        }
+
+        .feedback-user-badge i {
+            width: 13px;
+            height: 13px;
+        }
+
+        .feedback-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(212, 160, 160, 0.1);
+        }
+
+        .feedback-tab {
+            flex: 1;
+            padding: 10px 0;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+            text-transform: uppercase;
+        }
+
+        .feedback-tab.active {
+            color: var(--pale-rose);
+            border-bottom-color: var(--blood-red);
+        }
+
+        .feedback-tab:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .feedback-input-area {
+            width: 100%;
+            min-height: 80px;
+            max-height: 150px;
+            padding: 12px 16px;
+            background: rgba(26, 26, 37, 0.5);
+            border: 1px solid rgba(212, 160, 160, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .feedback-input-area:focus {
+            border-color: rgba(196, 30, 58, 0.3);
+        }
+
+        .feedback-input-area::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.4;
+            font-style: italic;
+        }
+
+        .feedback-submit-btn {
+            margin-top: 10px;
+            padding: 8px 22px;
+            background: linear-gradient(135deg, var(--crimson), var(--blood-red));
+            border: none;
+            border-radius: 30px;
+            color: var(--ghost-white);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(196, 30, 58, 0.2);
+        }
+
+        .feedback-submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 18px rgba(196, 30, 58, 0.35);
+        }
+
+        .feedback-list {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .feedback-list::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .feedback-list::-webkit-scrollbar-thumb {
+            background: rgba(196, 30, 58, 0.25);
+            border-radius: 3px;
+        }
+
+        .feedback-item {
+            padding: 14px 16px;
+            background: rgba(26, 26, 37, 0.4);
+            border: 1px solid rgba(212, 160, 160, 0.08);
+            border-radius: 10px;
+            animation: feedbackFadeIn 0.4s ease;
+        }
+
+        @keyframes feedbackFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .feedback-item-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feedback-item-author {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.85rem;
+            color: var(--rose-gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .feedback-item-author i {
+            width: 13px;
+            height: 13px;
+        }
+
+        .feedback-item-type {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(196, 30, 58, 0.1);
+            color: var(--pale-rose);
+        }
+
+        .feedback-item-type.suggestion {
+            background: rgba(45, 27, 61, 0.2);
+            color: #c4a0d4;
+        }
+        
+        .admin-delete-btn {
+            background: rgba(196, 30, 58, 0.1);
+            border: 1px solid rgba(196, 30, 58, 0.3);
+            border-radius: 6px;
+            color: var(--blood-red);
+            padding: 4px 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-delete-btn:hover {
+            background: var(--blood-red);
+            color: var(--ghost-white);
+            transform: scale(1.05);
+        }
+
+        .admin-delete-btn i {
+            width: 14px;
+            height: 14px;
+        }
+
+        .feedback-item-text {
+            font-family: 'Crimson Text', Georgia, serif;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        .feedback-item-time {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            opacity: 0.5;
+        }
+
+        .feedback-empty {
+            text-align: center;
+            padding: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            opacity: 0.5;
+        }
+
+        /* ═══════════════════════════════════════════
+           🔀 PAGE NAVIGATION
+           ═══════════════════════════════════════════ */
         .page-nav {
             display: flex;
             justify-content: center;
@@ -465,19 +877,57 @@
             border-radius: inherit;
         }
 
-        .nav-btn:hover::before { opacity: 1; }
-        .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(196, 30, 58, 0.2); border-color: rgba(196, 30, 58, 0.5); }
-        .nav-btn:active { transform: translateY(0px); }
-        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
-        .nav-btn:disabled:hover { box-shadow: none; border-color: rgba(196, 30, 58, 0.3); }
-        .nav-btn:disabled::before { display: none; }
-        .nav-btn i { width: 16px; height: 16px; position: relative; z-index: 1; }
-        .nav-btn span { position: relative; z-index: 1; }
+        .nav-btn:hover::before {
+            opacity: 1;
+        }
 
-        .page-indicator { display: flex; align-items: center; gap: 8px; padding: 8px 16px; }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196, 30, 58, 0.2);
+            border-color: rgba(196, 30, 58, 0.5);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .nav-btn:disabled:hover {
+            box-shadow: none;
+            border-color: rgba(196, 30, 58, 0.3);
+        }
+
+        .nav-btn:disabled::before {
+            display: none;
+        }
+
+        .nav-btn i {
+            width: 16px;
+            height: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+        }
 
         .indicator-dot {
-            width: 8px; height: 8px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: rgba(196, 30, 58, 0.2);
             border: 1px solid rgba(196, 30, 58, 0.3);
@@ -485,9 +935,20 @@
             cursor: pointer;
         }
 
-        .indicator-dot.active { background: var(--blood-red); box-shadow: 0 0 12px rgba(196, 30, 58, 0.5); transform: scale(1.3); }
-        .indicator-dot:hover:not(.active) { background: rgba(196, 30, 58, 0.4); transform: scale(1.1); }
+        .indicator-dot.active {
+            background: var(--blood-red);
+            box-shadow: 0 0 12px rgba(196, 30, 58, 0.5);
+            transform: scale(1.3);
+        }
 
+        .indicator-dot:hover:not(.active) {
+            background: rgba(196, 30, 58, 0.4);
+            transform: scale(1.1);
+        }
+
+        /* ═══════════════════════════════════════════
+           ✨ COVER PAGE (First Page)
+           ═══════════════════════════════════════════ */
         .cover-page {
             display: flex;
             flex-direction: column;
@@ -498,7 +959,8 @@
         }
 
         .cover-emblem {
-            width: 100px; height: 100px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(139, 0, 0, 0.2), rgba(45, 27, 61, 0.15));
             border: 1px solid rgba(196, 30, 58, 0.25);
@@ -529,7 +991,11 @@
             100% { transform: rotate(360deg); }
         }
 
-        .cover-emblem i { width: 40px; height: 40px; color: var(--blood-red); }
+        .cover-emblem i {
+            width: 40px;
+            height: 40px;
+            color: var(--blood-red);
+        }
 
         .cover-title {
             font-family: 'Cinzel Decorative', serif;
@@ -560,7 +1026,12 @@
             margin-bottom: 40px;
         }
 
-        .cover-meta { display: flex; align-items: center; gap: 20px; margin-top: 10px; }
+        .cover-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
 
         .cover-meta-item {
             display: flex;
@@ -572,7 +1043,12 @@
             letter-spacing: 1px;
         }
 
-        .cover-meta-item i { width: 14px; height: 14px; color: var(--rose-gold); opacity: 0.7; }
+        .cover-meta-item i {
+            width: 14px;
+            height: 14px;
+            color: var(--rose-gold);
+            opacity: 0.7;
+        }
 
         .cover-start-btn {
             display: inline-flex;
@@ -603,11 +1079,28 @@
             transition: opacity 0.3s ease;
         }
 
-        .cover-start-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 35px rgba(196, 30, 58, 0.45); }
-        .cover-start-btn:hover::before { opacity: 1; }
-        .cover-start-btn i { width: 18px; height: 18px; transition: transform 0.3s ease; }
-        .cover-start-btn:hover i { transform: translateX(4px); }
+        .cover-start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(196, 30, 58, 0.45);
+        }
 
+        .cover-start-btn:hover::before {
+            opacity: 1;
+        }
+
+        .cover-start-btn i {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .cover-start-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ═══════════════════════════════════════════
+           🔮 "TO BE CONTINUED" PAGE
+           ═══════════════════════════════════════════ */
         .continued-page {
             display: flex;
             flex-direction: column;
@@ -617,8 +1110,17 @@
             min-height: 500px;
         }
 
-        .continued-icon { margin-bottom: 30px; opacity: 0.6; }
-        .continued-icon i { width: 50px; height: 50px; color: var(--rose-gold); animation: iconFloat 3s ease-in-out infinite; }
+        .continued-icon {
+            margin-bottom: 30px;
+            opacity: 0.6;
+        }
+
+        .continued-icon i {
+            width: 50px;
+            height: 50px;
+            color: var(--rose-gold);
+            animation: iconFloat 3s ease-in-out infinite;
+        }
 
         @keyframes iconFloat {
             0%, 100% { transform: translateY(0); }
@@ -642,10 +1144,15 @@
             margin-bottom: 30px;
         }
 
-        .continued-dots { display: flex; gap: 8px; margin-top: 20px; }
+        .continued-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
 
         .continued-dots span {
-            width: 6px; height: 6px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: var(--blood-red);
             animation: dotPulse 1.5s ease-in-out infinite;
@@ -659,6 +1166,9 @@
             50% { opacity: 0.8; transform: scale(1.5); }
         }
 
+        /* ═══════════════════════════════════════════
+           🦇 FOOTER
+           ═══════════════════════════════════════════ */
         .story-footer {
             text-align: center;
             margin-top: 60px;
@@ -667,37 +1177,135 @@
             animation: fadeIn 1s ease 2.5s forwards;
         }
 
-        .footer-ornament { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; }
-        .footer-ornament .fo-line { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--rose-gold), transparent); opacity: 0.3; }
-        .footer-ornament i { width: 16px; height: 16px; color: var(--blood-red); opacity: 0.5; }
-        .footer-text { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--text-secondary); letter-spacing: 2px; opacity: 0.6; }
-        .footer-credit { font-family: 'Great Vibes', cursive; font-size: 1.2rem; color: var(--rose-gold); margin-top: 8px; opacity: 0.5; }
+        .footer-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
 
+        .footer-ornament .fo-line {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--rose-gold), transparent);
+            opacity: 0.3;
+        }
+
+        .footer-ornament i {
+            width: 16px;
+            height: 16px;
+            color: var(--blood-red);
+            opacity: 0.5;
+        }
+
+        .footer-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            opacity: 0.6;
+        }
+
+        .footer-credit {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.2rem;
+            color: var(--rose-gold);
+            margin-top: 8px;
+            opacity: 0.5;
+        }
+
+        /* ═══════════════════════════════════════════
+           📱 RESPONSIVE DESIGN
+           ═══════════════════════════════════════════ */
         @media (max-width: 768px) {
-            .story-title { font-size: 1.8rem; }
-            .page { padding: 35px 25px; }
-            .cover-title { font-size: 1.8rem; }
-            .cover-subtitle { font-size: 1.3rem; }
-            .day-number { font-size: 1.8rem; }
-            .story-content { font-size: 1.05rem; }
-            .story-content .first-letter { font-size: 2.5rem; }
-            .nav-btn { padding: 12px 20px; font-size: 0.85rem; }
-            .page-nav { gap: 10px; }
-            .continued-title { font-size: 1.4rem; letter-spacing: 3px; }
+            .story-title {
+                font-size: 1.8rem;
+            }
+
+            .page {
+                padding: 35px 25px;
+            }
+
+            .cover-title {
+                font-size: 1.8rem;
+            }
+
+            .cover-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .day-number {
+                font-size: 1.8rem;
+            }
+
+            .story-content {
+                font-size: 1.05rem;
+            }
+
+            .story-content .first-letter {
+                font-size: 2.5rem;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+
+            .page-nav {
+                gap: 10px;
+            }
+
+            .continued-title {
+                font-size: 1.4rem;
+                letter-spacing: 3px;
+            }
         }
 
         @media (max-width: 480px) {
-            .story-wrapper { padding: 20px 10px 80px; }
-            .story-title { font-size: 1.5rem; }
-            .page { padding: 25px 18px; }
-            .cover-title { font-size: 1.5rem; }
-            .day-number { font-size: 1.5rem; }
-            .story-content { font-size: 1rem; line-height: 1.9; }
-            .cover-meta { flex-direction: column; gap: 10px; }
-            .nav-btn { padding: 10px 16px; font-size: 0.8rem; letter-spacing: 1px; }
+            .story-wrapper {
+                padding: 20px 10px 80px;
+            }
+
+            .story-title {
+                font-size: 1.5rem;
+            }
+
+            .page {
+                padding: 25px 18px;
+            }
+
+            .cover-title {
+                font-size: 1.5rem;
+            }
+
+            .day-number {
+                font-size: 1.5rem;
+            }
+
+            .story-content {
+                font-size: 1rem;
+                line-height: 1.9;
+            }
+
+            .cover-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
         }
 
-        .page-turning .page.active { animation: pageTurnShadow 0.8s ease; }
+        /* ═══════════════════════════════════════════
+           🌀 PAGE TRANSITION EFFECTS
+           ═══════════════════════════════════════════ */
+        .page-turning .page.active {
+            animation: pageTurnShadow 0.8s ease;
+        }
 
         @keyframes pageTurnShadow {
             0% { box-shadow: 4px 4px 20px var(--page-shadow); }
@@ -705,6 +1313,7 @@
             100% { box-shadow: 4px 4px 20px var(--page-shadow); }
         }
 
+        /* Sound wave animation for ambient effect indicator */
         .ambient-toggle {
             position: fixed;
             bottom: 20px;
@@ -713,7 +1322,8 @@
             background: rgba(26, 26, 37, 0.8);
             border: 1px solid rgba(196, 30, 58, 0.2);
             border-radius: 50%;
-            width: 44px; height: 44px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -722,19 +1332,34 @@
             backdrop-filter: blur(10px);
         }
 
-        .ambient-toggle:hover { border-color: rgba(196, 30, 58, 0.4); box-shadow: 0 0 20px rgba(196, 30, 58, 0.15); }
-        .ambient-toggle i { width: 18px; height: 18px; color: var(--rose-gold); }
+        .ambient-toggle:hover {
+            border-color: rgba(196, 30, 58, 0.4);
+            box-shadow: 0 0 20px rgba(196, 30, 58, 0.15);
+        }
+
+        .ambient-toggle i {
+            width: 18px;
+            height: 18px;
+            color: var(--rose-gold);
+        }
     </style>
 </head>
 <body>
 
+    <!-- 3D Shapes Canvas -->
     <canvas id="shapesCanvas"></canvas>
+
+    <!-- Ambient Particles -->
     <div class="particles-container" id="particlesContainer"></div>
+
+    <!-- Candle Glows -->
     <div class="candle-glow left"></div>
     <div class="candle-glow right"></div>
 
+    <!-- Main Wrapper -->
     <div class="story-wrapper">
 
+        <!-- ═══════ HEADER ═══════ -->
         <header class="story-header">
             <div class="header-icon">
                 <i data-lucide="skull"></i>
@@ -744,7 +1369,7 @@
                 <i data-lucide="ghost"></i>
             </div>
             <h1 class="story-title">Nandini</h1>
-            <p class="story-subtitle">a tale between shadows &amp; love</p>
+            <p class="story-subtitle">a tale between shadows & love</p>
             <div class="header-ornament">
                 <div class="ornament-line"></div>
                 <div class="ornament-icon"><i data-lucide="moon"></i></div>
@@ -752,6 +1377,7 @@
             </div>
         </header>
 
+        <!-- ═══════ BOOK ═══════ -->
         <div class="book-container">
             <div class="book" id="book">
 
@@ -803,53 +1429,81 @@
                             <div class="orn-line"></div>
                         </div>
                     </div>
+
                     <div class="story-content">
                         <p>
-                            <span class="first-letter">Y</span>eh kahani shuru hoti hai ek ladki ki
-                            zindagi se, jiska naam <span class="highlight">Nandini</span> hai — jo abhi
-                            11th mein padh rahi hai. Nandini ko ghumne ke saath
-                            <span class="highlight">Korean drama</span> dekhna bahut pasand hai.
-                            School mein woh kaafi achhi ladki hai — sabse pyaar se baat
-                            karne wali, hamesha muskurane wali. Yeh waqt hai
-                            <span class="highlight">25 December 2025</span> — Christmas ka din. Nandini
-                            apne cousins ke saath din mein ghumne aayi thi. Sab bahut masti kar rahe the,
-                            Christmas lights har jagah chamak rahi thi, aur Nandini ki hansi har pal
+                            <span class="first-letter">Y</span>eh kahani shuru hoti hai ek ladki ki 
+                            zindagi se, jiska naam <span class="highlight">Nandini</span> hai — jo abhi 
+                            11th mein padh rahi hai. Nandini ko ghumne ke saath 
+                            <span class="highlight">Korean drama</span> dekhna bahut pasand hai. 
+                            School mein woh kaafi achhi ladki hai — sabse pyaar se baat 
+                            karne wali, hamesha muskurane wali. Yeh waqt hai 
+                            <span class="highlight">25 December 2025</span> — Christmas ka din. Nandini 
+                            apne cousins ke saath din mein ghumne aayi thi. Sab bahut masti kar rahe the, 
+                            Christmas lights har jagah chamak rahi thi, aur Nandini ki hansi har pal 
                             mein ghulti ja rahi thi.
                         </p>
+
                         <p>
-                            Raat mein dinner karne ke baad, jab sab sone lage, Nandini ka plan bana —
-                            <span class="creepy">Korean drama dekhne ka.</span> Woh apne kamre mein bed
-                            par baith gayi, bistar ka comforter upar tak kheench liya, aur phone ki
-                            dhimi roshni mein YouTube khola. Woh ek naya aur unique Korean drama dhundh rahi
-                            thi — kuch aisa jo pehle kabhi na dekha ho. Tab use mila —
-                            <span class="highlight">"Wifty"</span>. Naam sunkar thoda strange laga, par
+                            Raat mein dinner karne ke baad, jab sab sone lage, Nandini ka plan bana — 
+                            <span class="creepy">Korean drama dekhne ka.</span> Woh apne kamre mein bed 
+                            par baith gayi, bistar ka comforter upar tak kheench liya, aur phone ki 
+                            dhimi roshni mein YouTube khola. Woh ek naya aur unique Korean drama dhundh rahi 
+                            thi — kuch aisa jo pehle kabhi na dekha ho. Tab use mila — 
+                            <span class="highlight">"Wifty"</span>. Naam sunkar thoda strange laga, par 
                             curiosity jeet gayi. Usne play button dabaya aur drama dekhna shuru kar diya.
                         </p>
+
                         <p>
-                            Drama itna engaging tha ki Nandini ko pata hi nahi chala kab
-                            <span class="creepy">raat ke 3 baj gaye</span>. Ghar mein sannata tha —
-                            sirf uski phone ki dhimi roshni kamre mein tharti rahi thi. Tab achanak,
-                            Nandini ko chocolate khane ka mann kiya. Woh bed se uthi, kamre ka darwaza
-                            khola — bahar andhera tha. Hallway se guzarti hui woh kitchen ki taraf ja rahi
+                            Drama itna engaging tha ki Nandini ko pata hi nahi chala kab 
+                            <span class="creepy">raat ke 3 baj gaye</span>. Ghar mein sannata tha — 
+                            sirf uski phone ki dhimi roshni kamre mein tharti rahi thi. Tab achanak, 
+                            Nandini ko chocolate khane ka mann kiya. Woh bed se uthi, kamre ka darwaza 
+                            khola — bahar andhera tha. Hallway se guzarti hui woh kitchen ki taraf ja rahi 
                             thi, jab ek awaaz aayi — <span class="creepy">washroom se paani girne ki awaaz.</span>
                         </p>
+
                         <p>
-                            "Tap shayad band nahi hua hoga," Nandini ne khud se kaha. Woh washroom gayi,
-                            <span class="creepy">tap band kiya</span> — par jab wapas mudi, toh usne
-                            mehsoos kiya ki hallway pehle se kahin zyada andhera ho gaya hai. Woh tezi se
-                            kamre mein wapas aayi aur darwaza band kar liya. Phone uthaya — drama abhi
-                            bhi chal raha tha. Par ab Nandini ka dil thoda tez dhadak raha tha.
-                            Usne chocolate ka khayal bhi bhula diya. Screen ki roshni mein, woh phir se
-                            drama mein kho gayi — par <span class="creepy">raat ki us awaaz ne uske zehen
+                            "Tap shayad band nahi hua hoga," Nandini ne khud se kaha. Woh washroom gayi, 
+                            <span class="creepy">tap band kiya</span> — par jab wapas mudi, toh usne 
+                            mehsoos kiya ki hallway pehle se kahin zyada andhera ho gaya hai. Woh tezi se 
+                            kamre mein wapas aayi aur darwaza band kar liya. Phone uthaya — drama abhi 
+                            bhi chal raha tha. Par ab Nandini ka dil thoda tez dhadak raha tha. 
+                            Usne chocolate ka khayal bhi bhula diya. Screen ki roshni mein, woh phir se 
+                            drama mein kho gayi — par <span class="creepy">raat ki us awaaz ne uske zehen 
                             mein ek chhoti si darar daal di thi...</span>
                         </p>
+
                         <p>
-                            Kuch der baad, jab woh phir se drama mein magan thi, achanak <span class="creepy">corridor se ek zor-daar awaaz aayi</span>.
-                            Is baar woh use ansuna nahi kar paayi. Himmat juta kar, Nandini dobara kamre se bahar nikli aur us awaaz ki taraf check karne gayi.
-                            Par udhar use <span class="highlight">kuch nahi mila</span>. Sirf ek veerani si khamoshi aur gahra andhera tha.
-                            Us ajeeb darr ke maare woh fauran apne kamre mein wapas aayi, darwaza lock kiya, aur
+                            Kuch der baad, jab woh phir se drama mein magan thi, achanak <span class="creepy">corridor se ek zor-daar awaaz aayi</span>. 
+                            Is baar woh use ansuna nahi kar paayi. Himmat juta kar, Nandini dobara kamre se bahar nikli aur us awaaz ki taraf check karne gayi. 
+                            Par udhar use <span class="highlight">kuch nahi mila</span>. Sirf ek veerani si khamoshi aur gahra andhera tha. 
+                            Us ajeeb darr ke maare woh fauran apne kamre mein wapas aayi, darwaza lock kiya, aur 
                             apne bistar mein chup-chap <span class="creepy">sone ke liye let gayi...</span>
                         </p>
+                    </div>
+
+                    <!-- Reader Feedback -->
+                    <div class="reader-feedback" data-page-id="day1">
+                        <div class="feedback-header" ondblclick="unlockAdmin()">
+                            <i data-lucide="message-circle"></i>
+                            <h3 style="cursor: default; user-select: none;">Readers' Corner</h3>
+                        </div>
+                        <div class="feedback-name-gate">
+                            <label>Enter your name to join the conversation</label>
+                            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+                            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+                        </div>
+                        <div class="feedback-form">
+                            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+                            <div class="feedback-tabs">
+                                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+                            </div>
+                            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+                            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+                        </div>
+                        <div class="feedback-list"></div>
                     </div>
                 </div>
 
@@ -870,22 +1524,50 @@
                             <div class="orn-line"></div>
                         </div>
                     </div>
+
                     <div class="story-content">
                         <p>
                             <span class="first-letter">A</span>gle din subah ki kiran ke saath, lagbhag 8:30 baje, Nandini ne apni padhai beech mein hi chhod kar, dil mein dabi us raat ki gehri bechaini lekar, apni dost <span class="highlight">Shreya</span> ko call kiya. Usne pichli raat ki us tapakti awaaz aur corridor ki us dehshat ke baare mein sab kuch bataya. Par Shreya, hamesha ki tarah, zor se hans padi — "Oye, raat mein ganja vagaira phoonkna kab se shuru kar diya?" Nandini ne chidh kar "Chal, chal, chal" bola aur phone kaat diya. Par andar hi andar ek chubhti bechaini ab bhi baaki thi.
                         </p>
+
                         <p>
                             Raat dhali, thand badhne lagi. Us ajeeb ghatna ko zardasti dimag se nikalane ki koshish mein Nandini wapas apna drama dekhne baith gayi. Dekhte-dekhte raat ke <span class="creepy">2:30 baj gaye</span>. Poora ghar ek khouf-zaada khamoshi mein duba tha — itna shant ki uski apni saansein bhi shor lagti thi. Achanak, theek uske darwaze par... ek awaaz aayi — <span class="creepy">"Khat... Khat..."</span> Jaise koi jan-boojh kar, dheeme se, bilkul uske paas khada knock kar raha ho.
                         </p>
+
                         <p>
                             Nandini ke seene mein dil jaise atak gaya. Woh jhijhakti hui, kaanpte pairon ke saath bistar se uthi. Usne darwaza ek inch khol kar jhaanka toh bahar <span class="highlight">koi nahi tha</span>. Sirf ghup andhera aur ek silli, barfili hawa thi. Par jab uski nazar neeche floor par padi, toh uske pairon tale zameen khisak gayi — wahan tiles par <span class="creepy">kisi ke bare pairon ke geele nishaan</span> pade the, jo dheere-dheere dark corridor ki taraf ja rahe the — jaise koi abhi-abhi wahan khada use sun raha tha.
                         </p>
+
                         <p>
                             Theek usi waqt, Nandini ke haath mein pakde phone ki screen lit hui. Uski chhoti behen ka message tha: <i>"Bahar awaaz kaun kar raha hai?"</i> Nandini ka dil sehem gaya. Usne turant un dhundhle pairon ke nishaanon ki photos click ki aur behen ko bhej di. Par uski ragon mein khoon jam gaya jab usne sent folder mein un photos ko zoom karke dekha... <span class="creepy">unme pairon ke nishaan the hi nahi! Tiles bilkul saaf aur khali thi!</span>
                         </p>
+
                         <p>
                             Ghabra kar, aansuon ki awaaz dabaye, Nandini daudti hui apni chhoti behen ke room mein pahunchi. Darwaza dhakke se khola — par wahan blanket mein lipti padi woh <span class="highlight">gehri neend mein so rahi thi</span>, aur uska phone bed se kaafi door table par pada tha. Tabhi... Nandini ke haath mein apni screen par usi behen ke number se ek aur message blink hua: <i>"Peeche toh dekh..."</i> Khauf se kaanpte hue, Nandini bagair peeche mude seedhe pairon wapas bhaagi, darwaza lock kiya, aur <span class="creepy">aansu bahate hue saari raat deewar ki taraf mooh karke kaanpti rahi.</span>
                         </p>
+                    </div>
+
+                    <!-- Reader Feedback -->
+                    <div class="reader-feedback" data-page-id="day2">
+                        <div class="feedback-header" ondblclick="unlockAdmin()">
+                            <i data-lucide="message-circle"></i>
+                            <h3 style="cursor: default; user-select: none;">Readers' Corner</h3>
+                        </div>
+                        <div class="feedback-name-gate">
+                            <label>Enter your name to join the conversation</label>
+                            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+                            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+                        </div>
+                        <div class="feedback-form">
+                            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+                            <div class="feedback-tabs">
+                                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+                            </div>
+                            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+                            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+                        </div>
+                        <div class="feedback-list"></div>
                     </div>
                 </div>
 
@@ -906,25 +1588,54 @@
                             <div class="orn-line"></div>
                         </div>
                     </div>
+
                     <div class="story-content">
                         <p>
                             <span class="first-letter">A</span>gle din subah jaldi uth kar, Nandini ne raat ke us dehshat bhare poore waqye ko bilakh-bilakh kar apni mummy ko bataya. Par dukh is baat ka tha ki <span class="highlight">kisi ne us par bharosa nahi kiya</span>. Apna sach sabit karne ke liye jab usne kaanpte haathon se phone nikal kar woh dark messages dhundhe, toh dekha ki chat bilkul khaali tha — <span class="creepy">woh saare messages screen se aise gayab the, jaise kisi andhere ne unhe nigal liya ho.</span>
                         </p>
+                        
                         <p>
                             Mummy ne ulta use daantate hue kaha ki der raat tak ajeeb videos dekhegi toh aise hi bhayanak sapne aayenge. Dopehar mein mummy ne bataya ki unhe ek family function ke liye rishtedaar ke ghar jaana tha. Nandini ke <span class="highlight">board exams the</span>, isliye woh us akele band ghar mein ruk gayi — jahan ek-ek kone se darr uska intezaar kar raha tha.
                         </p>
+
                         <p>
                             Shaam ko depression aur anxiety se rahat paane ke liye woh bahar nikal gayi. Mummy ne kaha tha ki unhe function se wapas aane mein kaafi raat ho jayegi, isliye woh khud ka dinner le aaye. Jab woh khaana lekar, sunsaan aur kaali pad chuki colony sadak se wapas aa rahi thi — achanak uske aas-paas ka taapman gir gaya aur ek silli, cheekh-si hawa daud gayi. Use solid ehsaas hua jaise <span class="creepy">koi 6 foot lambi cheez, bilkul bina awaaz ke, kachhe raste se theek uske sar ke paas se guzri</span>. Ek ajeeb metallic smell hawa mein phail gayi thi. Ghabrahat mein usne gaadi poori speed mein chalaayi aur bhag kar seedhe gate ke andar ghus gayi.
                         </p>
+
                         <p>
-                            Haafte hue, jaise hi usne kaali deewaron ke beech apna darwaza khola — <span class="creepy">chataak se ghar ki aakhiri bulb bhi phoot gayi aur achanak power cut ho gaya</span>. Hairat ki baat yeh thi ki usne khidki se bahar paas wali road jhaanki... toh saare ghar roshni mein naha rahe the; sirf uske 2 floor ke ghar ko jaise kisi kaali chaadar ne dhaank rakha tha. Nandini ne himmat jutayi, phone ki flashlight on ki, aur basement mein deewar se sata kar fuse panel check karne ke liye neeche utri.
+                            Haafte hue, jaise hi usne kaali deewaron ke beech apna darwaza khola — <span class="creepy">chataak se ghar ki aakhiri bulb bhi phoot gayi aur achaanak power cut ho gaya</span>. Hairat ki baat yeh thi ki usne khidki se bahar paas wali road jhaanki... toh saare ghar roshni mein naha rahe the; sirf uske 2 floor ke ghar ko jaise kisi kaali chaadar ne dhaank rakha tha. Nandini ne himmat jutayi, phone ki flashlight on ki, aur basement mein deewar se sata kar fuse panel check karne ke liye neeche utri.
                         </p>
+
                         <p>
-                            Basement ki seedhiyaan utarte waqt har awaaz, har saas goonj rahi thi. Jaise hi woh panel ke paas khadi hokar darr se fuse nikalane ki koshish kar rahi thi... uski nazar phone ki flickering flashlight se roshaan farsh par padi. Theek uske peeche — <span class="creepy">ek saat foot ka raakshas-aakar kaala saya ban raha tha... jiski silhouette mein saaf bade kaale pankhon ka dhaancha chamka tha!</span> Jhatke ke maare Nandini ghoom gayi — aur... <span class="highlight">wahan koi khada hi nahi tha</span>.
+                            Basement ki seedhiyaan utarte waqt har awaaz, har saas goonj rahi thi. Jaise hi woh panel ke paas khadi hokar darr se fuse nikalane ki koshish kar rahi thi... uski nazar phone ki flickering flashlight se roshaan farsh par padi. Theek uske peeche — <span class="creepy">ek saat foot ka raakshas-aakar shadow ban raha tha... jiski silhouette mein saaf bade kaale pankhon ka dhaancha chamka tha!</span> Jhatke ke maare Nandini ghoom gayi — aur... <span class="highlight">wahan koi khada hi nahi tha</span>.
                         </p>
+
                         <p>
                             Cheekh na phute aisi awastha mein woh paagal-si upar seedhiyaan chadhi. Woh bas deewar se lag kar saansein bhar rahi thi... tabhi bahar se <span class="creepy">doorbell baji — 'Ting Tong!'</span> Saans atak gayi — 11 baj chuke the, baahr kaun hoga? Bell doosri baar, ek lambi, daabi hui cheekh ki tarah baji. Mummy toh aayi nahi... toh yeh kaun...? Wahan jakar peephole mein jhaankne ki bajay, woh darr-darr kar apne bistar mein ghus gayi. Kuch der baad awaazein khamoosh ho gayin. Aur raat badhti chali aayi — us akele kamre mein, use dabochne.
                         </p>
+                    </div>
+
+                    <!-- Reader Feedback -->
+                    <div class="reader-feedback" data-page-id="day3">
+                        <div class="feedback-header" ondblclick="unlockAdmin()">
+                            <i data-lucide="message-circle"></i>
+                            <h3 style="cursor: default; user-select: none;">Readers' Corner</h3>
+                        </div>
+                        <div class="feedback-name-gate">
+                            <label>Enter your name to join the conversation</label>
+                            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+                            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+                        </div>
+                        <div class="feedback-form">
+                            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+                            <div class="feedback-tabs">
+                                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+                            </div>
+                            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+                            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+                        </div>
+                        <div class="feedback-list"></div>
                     </div>
                 </div>
 
@@ -945,28 +1656,58 @@
                             <div class="orn-line"></div>
                         </div>
                     </div>
+
                     <div class="story-content">
                         <p>
                             <span class="first-letter">R</span>aat ke theek <span class="creepy">2:30 baje</span>, jaise koi shaytaani clock trigger hui ho, Nandini ki kaanpti aankhein achanak poori khul gayin. Woh us isolated room mein andheron ki taraf sikud kar padi thi. Haafte hue usne phone screen uthaya — mummy ka 1:15 AM ka message tha ki toofaani baarish ho rahi hai aur ghar aate subah ho jaayegi. Maut jaisi khamoshi uske andar andhera bun rahi thi. Par tabhi... uske kamre ke lakdi ke darwaze ke theek us paar — ek bahut bhaari <span class="creepy">naakhunon se scratch karne ki awaaz aur heavy, ghuti hui mardaana saansein... bilkul bahar se feel huin</span>.
                         </p>
+
                         <p>
-                            Nandini ka paseena chhootne laga, bina rooh ke pure darr se kaanpte usne darwaze ka latch ghumaaya. Hall mein ghor kaala andhera tha — <span class="highlight">koi nahi tha</span>. Magar ek pal mein, hall mein flicker karta bulb zoron se bhidka... aur tabhi — flashes mein usne jo dekha, uski rooh uske jism ko chhod gayi. Uski aankhon ke zarr-se upar, poori chhat ko dhaapta hua, <span class="creepy">ek massive 7-foot kaala saya</span> khada tha — jiske shoulderon par behisaab broad, kaale pathhe-numaa paankh chipke the. Usne apni raakh-si aankhon se use thehraav mein ghoora, aur ek <span class="creepy">wicked, skin-crawling muskaan</span> dheere se uski taraf kheechi.
+                            Nandini ka paseena chhootne laga, bina rooh ke pure darr se kaanpte usne darwaze ka latch ghumaaya. Hall mein ghor kaala andhera tha — <span class="highlight">koi nahi tha</span>. Magar ek pal mein, hall mein flicker karta bulb zoron se bhidka... aur tabhi — flashes mein usne jo dekha, uski rooh uske jism ko chhod gayi. Uski aankhon ke zarr-se upar, poori chhat ko dhaapta hua, <span class="creepy">ek massive 7-foot shadow fiend</span> khada tha — jiske shoulderon par behisaab broad, kaale pathhe-numaa paankh chipke the. Usne apni raakh-si aankhon se use thehraav mein ghoora, aur ek <span class="creepy">wicked, skin-crawling muskaan</span> dheere se uski taraf kheechi.
                         </p>
+
                         <p>
-                            Uski cheekh gale mein hi atak gayi thi. Bas uska beqabu jism bahar bhaaga — darwaze todte hue seedha road ki taraf nikla... par bahar ka manzar duniya ka aakhir lag raha tha. Poori thand aur mrit aasmaan mein ek giant, glowing <span class="highlight">Blood Moon</span> us dark colony ke upar khoon baha raha tha! Achanak usne peeche palat kar dekha — <span class="creepy">woh kaala saya sky-speed se theek uske peeche slide kar aaya tha.</span>
+                            Uski cheekh gale mein hi atak gayi thi. Bas uska beqabu jism bahar bhaaga — darwaze todte hue seedha road ki taraf nikla... par bahar ka manzar duniya ka aakhir lag raha tha. Poori thand aur mrit aasmaan mein ek giant, glowing <span class="highlight">Blood Moon</span> us dark colony ke upar khoon baha raha tha! Achanak usne peeche palat kar dekha — woh entity sky-speed se theek uske peeche slide kar aaya tha.
                         </p>
+
                         <p>
-                            Woh pure aansuon mein doob gayi thi jab <span class="creepy">us kaale saaye ne</span> zabaardasti ek huge, thanda haath hawa mein se use pakad liya — dabocha tha use — aur uske poore jism ke frame se lagaataar ghaav phaadte hue <span class="creepy">kaale rang ka khoon seedha farsh aur Nandini par tapak raha tha!</span> Dard itna gehri tha, itna real tha — ki uski aankhon ke aage ek ghup kaala parda khichta chala gaya. Koi awaaz nahi, koi cheekh nahi — bas ek maut jaisa khaali sannata... aur phir kuch bhi nahi.
+                            Woh pure aansuon mein doob gayi thi jab entity ne zabaardasti ek huge, thanda haath hawa mein se use pakad liya — dabocha tha use — aur uske poore jism ke frame se lagaataar ghaav phaadte hue <span class="creepy">kaale rang ka khoon seedha farsh aur Nandini par tapak raha tha!</span> Dard itna gehri tha, itna real tha — ki uski aankhon ke aage ek ghup kaala parda khichta chala gaya. Koi awaaz nahi, koi cheekh nahi — bas ek maut jaisa khaali sannata... aur phir kuch bhi nahi.
                         </p>
+
                         <p>
                             <span class="highlight">29 December 2025 — subah ke 9:47 baje.</span> Mummy ki awaaz door se kaan mein ghus rahi thi — "Nandini! Nandini, uth!" Aankhein khulne se pehle hi naak mein dawa aur kapde ki boo aayi. Woh apne hi kamre mein thi, bistar par. Roshni aankhon ko chubh rahi thi. Mummy uske paas ghutne tek kar baith gayi thi, chehra darr se safed tha. "Beti, tune raat kahan bitaayi? Main subah aayi toh tu darwaze ke paas farsh par behosh padi thi..."
                         </p>
+
                         <p>
                             Nandini ne uthne ki koshish ki — aur ek taiz dard ne uska pura jism kheench liya. Usne apne haath dekhe... aur uski saas ruk gayi. Uski baahon aur kaandhe par gehri, kali neelee khuraachon ke nishaan the — jaise kisi bahut bade, bahut <span class="creepy">thande haath ne use kaskar pakda tha</span>. Kuch nishaan itne gehre the ki wahan skin phat gayi thi. Woh daag na kisi girane ke the, na kisi chot ke — woh ungliyon ke nishaan the. Baare, insaani nahi lagte, anjaan ungliyon ke nishaan.
                         </p>
+
                         <p>
                             Mummy chillaayi, phone uthaya, doctor ko call karne lagi. Par Nandini ki nazar seedhi khidki par tiki rahi — Blood Moon ab ja chuka tha. Aasmaan saaf neela tha, dhoop khili thi. Duniya normal thi. Par uske jism par woh nishaan real the — theek abhi bhi jal rahe the. Aur uske zehen mein baar baar wahi raakh jaisi aankhein, wahi <span class="creepy">skin-crawling muskaan</span> ghumti rahi — saath ek hi sawaal: <i>"Kya... yeh sach mein hua tha... ya kuch aane wala hai?"</i>
                         </p>
+                    </div>
+
+                    <!-- Reader Feedback -->
+                    <div class="reader-feedback" data-page-id="day4">
+                        <div class="feedback-header" ondblclick="unlockAdmin()">
+                            <i data-lucide="message-circle"></i>
+                            <h3 style="cursor: default; user-select: none;">Readers' Corner</h3>
+                        </div>
+                        <div class="feedback-name-gate">
+                            <label>Enter your name to join the conversation</label>
+                            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+                            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+                        </div>
+                        <div class="feedback-form">
+                            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+                            <div class="feedback-tabs">
+                                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+                            </div>
+                            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+                            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+                        </div>
+                        <div class="feedback-list"></div>
                     </div>
                 </div>
 
@@ -987,81 +1728,143 @@
                             <div class="orn-line"></div>
                         </div>
                     </div>
+
                     <div class="story-content">
                         <p>
                             <span class="first-letter">S</span>ubah ki roshni mein bhi woh ghar daba hua lagta tha. Doctor aa ke ja chuka tha. Dawaayein bed ke paas tiki thi. Mummy baar baar poohhti rahi — "Yeh nishaan kaise aaye? Kahan lagi chot?" — par Nandini ke paas koi jawab nahi tha jo koi sun sakta. Toh woh bas chup rahi, chhat ghoorti rahi, aur Nandini ke phone ki screen pe baar baar ek hi naam blink karta raha — <span class="highlight">Baibhav</span>. 7 missed calls.
                         </p>
+
                         <p>
-                            Baibhav — usi colony mein rehne wala uska bachpan ka dost. Jo school ke pehle din se aaj tak, bina bole, bina pooche, har zaroori waqt mein aa khada hota tha. Nandini jaanti thi ki agar usne call uthaya toh woh rone lagegi — aur abhi woh afford nahi kar sakti thi. Chhoti behen <span class="highlight">Priya</span> pehle se kaafi darri hui thi. Ghar ka maahaul pehle se hi bhaaraa tha.
+                            Baibhav — usi colony mein rehne wala uska bachpan ka dost. Jo school ke pehle din se aaj tak, bina bole, bina pooche, har zaroori waqt mein aa khada hota tha. Nandini jaanti thi ki agar usne call uthaya toh woh rone lagegi — aur abhi woh afford nahi kar sakti thi. Chhoti behen Myra pehle se kaafi darri hui thi. Ghar ka maahaul pehle se hi bhaaraa tha.
                         </p>
+
                         <p>
                             Par Baibhav kabse kisi ke jawab ka intezaar karta tha. Dopehar ke 2:15 baje doorbell baji. Nandini ne khidki se neeche dekha — neeli jacket, haath mein ek polybag — wahi tha. Nandini ne darwaza khola. Baibhav ki nazar seedha uske kaandhe aur baahon ke un gehre kaale nishaanon par gayi — aur uske chehere par jo expression aaya, woh na gussa tha, na hainaani — woh ek dabi hui, andar se kaanpti chinta thi. "Yeh kya hai, Nandini?" Awaaz dheemi thi par andar kuch kharaash raha tha. Nandini ne door seedha khol diya.
                         </p>
-                        <p>
-                            Kitchen table par baithke, Nandini ne sab kuch bataya. Pehli raat se — 25 December se — ek-ek cheez. Tapakti awaaz. Geele pairon ke nishaan jo photos mein gayab ho gaye. Chhoti behen ke number se aaya woh message — "Peeche toh dekh." Basement ka 7-foot kaala saya. Doorbell. Blood Moon. Aur aakhir mein — <span class="creepy">woh thanda haath, woh ghaav, aur subah farsh par behoshi</span>. Bolte waqt uski awaaz kaanpi — par woh ruki nahi. Baibhav poori baat sunte waqt ek baar bhi nahi hansa, ek baar bhi nahi bola "zyada soch mat." Usne sirf suna. Poori baat sunne ke baad usne polybag se paracetamol ki strip aur thanda juice nikaala aur seedha Nandini ke saamne rakh diya. <span class="highlight">"Main maanta hoon tujhe,"</span> usne kaha. Bas itna. Aur itna kaafi tha.
-                        </p>
-                        <p>
-                            Shaam ko karib 5 baje, Mummy ne Nandini ko bithaa ke baat ki. Nani ki tabiyat bahut kharaab thi — hospitalize karna pad sakta tha. Mummy majboor thi. "Baibhav ke paas rehne ko bol, main kal tak pakka wapas aa jaaungi." Nandini ne haan bol di. Mummy ka bag taiyaar hua, auto aaya, aur ghar ki door band hui. <span class="creepy">Nandini aur Priya wapas akeli reh gayin — usi ghar mein.</span>
-                        </p>
-                        <p>
-                            Raat utarne se pehle hi — theek 7 baje — Baibhav wapas aa gaya. Is baar haath mein ek purani, moti diary thi aur ek torch. "Maine thoda research kiya," usne andar aate hi kaha. Table par diary kholte hue usne ek panna Nandini ke saamne rakha. Haath se likha tha — <span class="creepy">'Chhaya Praani — Ek Kaala Saya.'</span> "Yeh tab manifest hota hai jab koi insaan lagaataar raat ko jaag ke apni neend aur reality ke beech ki line blur karta hai — tabhi yeh andar ghus sakta hai." Nandini ke zehen mein ek baar sab ghoom gaya — Korean drama... 3 baje... lagaataar teen raatein... <span class="highlight">Woh khud hi is kaale saaye ke liye darwaaza khol ke baithi thi.</span>
-                        </p>
-                        <p>
-                            Baibhav ne poora ghar check kiya — basement, corridor, washroom — har woh jagah jo Nandini ne bataayi thi. <span class="highlight">Priya</span> bhi dono ke peeche torch pakde saath rahi. Basement mein, tiles ki ek darz mein ek kaala, chikna nishaan mila — na koyala, na keechar — kuch aur hi tha woh. Baibhav ne diary mein notes likhe aur bola ki yeh us kaale saaye ka entry point ho sakta hai. Wapas upar aate waqt Nandini ne notice kiya ki Baibhav ne kabhi ek baar bhi peeche palat ke nahi dekha — woh seedha, bina rukke chalta raha. Jaise woh jaanta tha ki rukna galat hoga.
-                        </p>
-                        <p>
-                            Raat ke 9:30 baje, <span class="highlight">Priya</span> so gayi. Nandini aur Baibhav living room mein the — ek lamp jal raha tha, Baibhav diary mein kuch likh raha tha. Sab kuch thodi der ke liye normal lagaa. Phir achanak — basement ki taraf se ek dheemi, lambi kharaaach ki awaaz aayi. Dono ek saath ruk gaye. Lamp flicker hua. Kamre ka taapman ek pal mein gir gaya. Baibhav ne diary band ki, seedha Nandini ki taraf dekha — uski aankhon mein ek ajeeb, shant decision tha: <span class="highlight">"Aaj raat isse khatam karna padega."</span>
-                        </p>
-                        <p>
-                            Aur tabhi — poore ghar ki roshni ek jhatke mein bujh gayi. Andhera itna ghup tha ki haath nahi dikha. Baibhav ne torch on ki aur beam seedha chhat par daali. Wahan — <span class="creepy">woh tha.</span> Poori chhat par phailta, kaale dhuyen jaisa — <span class="creepy">woh kaala saya</span> — raakh si aankhein seedha dono ko ghoor rahi thi. Woh jaana-pehchaana, skin-crawling muskaan — jaise in dono ka yahan hona use amusing lag raha tha. Nandini ke pair zameen par jad ho gaye. Baibhav ne diary ka ek panna tezi se kholaa — wahi panna jahan ek symbol tha — jaise woh pehle se taiyaar tha is pal ke liye. "Pehle se jaanta tha...?" Nandini ke dimag mein sawaal kaundhaa — par waqt nahi tha sochne ka. Us kaale saaye ne ek lambi, zehreeli <i>hissssss</i> ki aur <span class="creepy">seedha unpar dive ki—</span>
-                        </p>
-                    </div>
-                </div>
 
-                <!-- DAY 6 -->
-                <div class="page hidden" data-page="6">
-                    <div class="day-header">
-                        <div class="day-date-badge">
-                            <i data-lucide="calendar-days"></i>
-                            <span>30 December 2025</span>
-                        </div>
-                        <h2 class="day-number">Day 6</h2>
-                        <p class="day-tagline">Not everything can be killed. But everything can be fought.</p>
-                        <div class="day-header-ornament">
-                            <div class="orn-line"></div>
-                            <div class="orn-dot"></div>
-                            <div class="orn-dot"></div>
-                            <div class="orn-dot"></div>
-                            <div class="orn-line"></div>
-                        </div>
+                        <p>
+                            Kitchen table par baithke, Nandini ne sab kuch bataya. Pehli raat se — 25 December se — ek-ek cheez. Tapakti awaaz. Geele pairon ke nishaan jo photos mein gayab ho gaye. Chhoti behen ke number se aaya woh message — "Peeche toh dekh." Basement ka 7-foot saaya. Doorbell. Blood Moon. Aur aakhir mein — <span class="creepy">woh thanda haath, woh ghaav, aur subah farsh par behoshi</span>. Bolte waqt uski awaaz kaanpi — par woh ruki nahi. Baibhav poori baat sunte waqt ek baar bhi nahi hansa, ek baar bhi nahi bola "zyada soch mat." Usne sirf suna. Poori baat sunne ke baad usne polybag se paracetamol ki strip aur thanda juice nikaala aur seedha Nandini ke saamne rakh diya. <span class="highlight">"Main maanta hoon tujhe,"</span> usne kaha. Bas itna. Aur itna kaafi tha.
+                        </p>
+
+                        <p>
+                            Shaam ko karib 5 baje, Mummy ne Nandini ko bithaa ke baat ki. Nani ki tabiyat bahut kharaab thi — hospitalize karna pad sakta tha. Mummy majboor thi. "Baibhav ke paas rehne ko bol, main kal tak pakka wapas aa jaaungi." Nandini ne haan bol di. Mummy ka bag taiyaar hua, auto aaya, aur ghar ki door band hui. Nandini aur Myra wapas akeli reh gayin — usi ghar mein.
+                        </p>
+
+                        <p>
+                            Raat utarne se pehle hi — theek 7 baje — Baibhav wapas aa gaya. Is baar haath mein ek purani, moti diary thi aur ek torch. "Maine thoda research kiya," usne andar aate hi kaha. Table par diary kholte hue usne ek panna Nandini ke saamne rakha. Haath se likha tha — <span class="creepy">'Chhaya Praani — A Shadow Entity.'</span> "Yeh tab manifest hota hai jab koi insaan lagaataar raat ko jaag ke apni neend aur reality ke beech ki line blur karta hai — tabhi yeh andar ghus sakta hai." Nandini ke zehen mein ek baar sab ghoom gaya — Korean drama... 3 baje... lagaataar teen raatein... <span class="highlight">Woh khud hi is cheez ke liye darwaaza khol ke baithi thi.</span>
+                        </p>
+
+                        <p>
+                            Baibhav ne poora ghar check kiya — basement, corridor, washroom — har woh jagah jo Nandini ne bataayi thi. Myra bhi dono ke peeche torch pakde saath rahi. Basement mein, tiles ki ek darz mein ek kaala, chikna nishaan mila — na koyala, na keechar — kuch aur hi tha woh. Baibhav ne diary mein notes likhe aur bola ki yeh entity ka entry point ho sakta hai. Wapas upar aate waqt Nandini ne notice kiya ki Baibhav ne kabhi ek baar bhi peeche palat ke nahi dekha — woh seedha, bina rukke chalta raha. Jaise woh jaanta tha ki rukna galat hoga.
+                        </p>
+
+                        <p>
+                            Raat ke 9:30 baje, Myra so gayi. Nandini aur Baibhav living room mein the — ek lamp jal raha tha, Baibhav diary mein kuch likh raha tha. Sab kuch thodi der ke liye normal lagaa. Phir achanak — basement ki taraf se ek dheemi, lambi kharaaach ki awaaz aayi. Dono ek saath ruk gaye. Lamp flicker hua. Kamre ka taapman ek pal mein gir gaya. Baibhav ne diary band ki, seedha Nandini ki taraf dekha — uski aankhon mein ek ajeeb, shant decision tha: <span class="highlight">"Aaj raat isse khatam karna padega."</span>
+                        </p>
+
+                        <p>
+                            Aur tabhi — poore ghar ki roshni ek jhatke mein bujh gayi. Andhera itna ghup tha ki haath nahi dikha. Baibhav ne torch on ki aur beam seedha chhat par daali. Wahan — woh tha. Poori chhat par phailta, kaale dhuyen jaisa — woh <span class="creepy">massive shadow fiend</span> — raakh si aankhein seedha dono ko ghoor rahi thi. Woh jaana-pehchaana, skin-crawling muskaan — jaise in dono ka yahan hona use amusing lag raha tha. Nandini ke pair zameen par jad ho gaye. Baibhav ne diary ka ek panna tezi se kholaa — wahi panna jahan ek symbol tha — jaise woh pehle se taiyaar tha is pal ke liye. "Pehle se jaanta tha...?" Nandini ke dimag mein sawaal kaundhaa — par waqt nahi tha sochne ka. Entity ne ek lambi, zehreeli <i>hissssss</i> ki aur <span class="creepy">seedha unpar dive ki—</span>
+                        </p>
                     </div>
-                    <div class="story-content">
-                        <p>
-                            <span class="first-letter">W</span>oh dive karta hua aaya — dono side mein kude. Sofa palat gaya, lamp toot gaya. Baibhav ne torch seedha <span class="creepy">us kaale saaye</span> par daali — roshni jab bhi usse touch karti, woh hiss karke ek second ke liye peeche khichta. Sirf ek second. Phir woh wapas aata. <span class="creepy">Bada. Aur tez. Zyada gussa.</span> Nandini ne <span class="highlight">Priya</span> ka darwaza speed mein lock kiya — woh safe thi. Abhi sirf yeh do the. Aur yeh cheez.
-                        </p>
-                        <p>
-                            Tab <span class="creepy">us kaale saaye ne</span> kuch aisa kiya jo unhe expect nahi tha — <span class="creepy">usne apni shape change ki.</span> Ek second mein woh 7-foot ka kaala saya tha, agla second mein woh bilkul <span class="highlight">Baibhav</span> ki tarah dikhne laga. Same height, same jacket, same face. Do Baibhav. Ek real, <span class="creepy">ek kaala saya.</span> Nandini ki torch haath mein ruk gayi. Dono ek doosre ko dekh rahe the — bilkul same expression, bilkul same posture. Tab <span class="creepy">kaale saaye wale</span> "Baibhav" ne kaha — <i>"Nandini, seedha usse maaro—"</i> Aur Nandini ko woh ek pal mein pata chal gaya. <span class="highlight">Woh galat tha.</span> Real Baibhav kabhi usse seedha naam se nahi bulata tha — hamesha "sun" ya "aye" — kabhi directly "Nandini" nahi. Chaar saal ki dosti mein ek baar bhi nahi. <span class="creepy">Woh copy karta tha jo woh dekh sakta tha — jo feel kiya jaata hai woh nahi.</span> Nandini ne beam seedha <span class="creepy">us kaale saaye</span> ki aankhon par maari — woh wapas apni original form mein aa gaya. Gussa tha.
-                        </p>
-                        <p>
-                            "Tune kaha tha yeh Chhaya Praani hai," Nandini ne kaha. "Chhaya Praani copy nahi karta. Yeh kuch aur hai." Baibhav ruka — aur tab, <span class="creepy">bina kisi ke haath ke, diary ke pages khud palte huye khul gaye.</span> Ek chipke hue, kabhi na khule panne par ruk gaye. Bade letters mein likha tha — <span class="creepy"><b>VIKRAAL.</b></span> Neeche alag handwriting mein: <i>"Yeh Chhaya Praani nahi — yeh Vikraal hai. Iska koi fixed form nahi. Yeh doosri kaali taaqton ki copy karke attack karta hai taaki tum hamesha galat dushman se larte raho."</i> Baibhav ka chehra white ho gaya. Yeh handwriting uski nahi thi. <span class="highlight">"Yeh Deepak bhaiya ki writing hai,"</span> woh bola — awaaz ek baar thoosi. "Do saal pehle woh ek raat suddenly chale gaye. 19 saal ke the. Yeh diary unki thi. Tabse main research kar raha hoon."
-                        </p>
-                        <p>
-                            Nandini ne pages scroll kiye — notes, sketches, <span class="creepy">us kaale saaye</span> ke forms — par ek cheez kahin nahi thi. <span class="creepy">Koi solution nahi.</span> Sirf ek line thi — <i>"Rasta wahan hai jahan yeh nahi pohuunch sakta."</i> Dono ek second ruke — phir ek hi waqt mein dono ko samajh aaya. Deepak akele the. <span class="highlight">Yeh dono nahi the.</span> <span class="creepy">Kaala saya</span> roshni se slow hota tha, real naam se freeze hota tha — do second ki window. Bas itni. Nandini page ready pakde, Baibhav torch. Teen. Do. Ek — <span class="highlight">page seedha us kaale saaye ke saamne.</span> Woh freeze hua. Beam blast hui. <span class="creepy">Us kaale saaye ne</span> ek toota hua, ganda sound nikala — <span class="creepy">aur kaale dhuyen mein dissolve ho gaya.</span> Colony ekdam normal thi. Koi nahi jaaga. Jaise kuch hua hi nahi.
-                        </p>
-                        <p>
-                            Dono ki saansein tez thi. Lights sab on thi. Ghar normal tha. <span class="highlight">"Khatam ho gaya,"</span> Baibhav ne kaha — aur genuinely lag bhi raha tha. Diary table par rakh di. Nandini ne ek lambi saans li.
-                        </p>
-                        <p>
-                            Par tab — table par rakhi diary <span class="creepy">khud-ba-khud phir se khul gayi.</span> Ek bilkul blank page par. Letters slowly, ek ek karke, andar se upar aane lage — <span class="creepy">jaise koi liquid andar se skin ke through push kar raha ho:</span>
-                        </p>
-                        <p>
-                            <span class="creepy"><i>"Tum dono ne jo destroy kiya... woh main nahi tha."</i></span>
-                        </p>
-                        <p>
-                            <span class="highlight">Aur poore ghar ki lights ek baar phir bujh gayin.</span>
-                        </p>
+
+                    <!-- Reader Feedback -->
+                    <div class="reader-feedback" data-page-id="day5">
+                        <div class="feedback-header" ondblclick="unlockAdmin()">
+                            <i data-lucide="message-circle"></i>
+                            <h3 style="cursor: default; user-select: none;">Readers' Corner</h3>
+                        </div>
+                        <div class="feedback-name-gate">
+                            <label>Enter your name to join the conversation</label>
+                            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+                            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+                        </div>
+                        <div class="feedback-form">
+                            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+                            <div class="feedback-tabs">
+                                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+                            </div>
+                            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+                            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+                        </div>
+                        <div class="feedback-list"></div>
                     </div>
                 </div>
+                <!-- DAY 6 -->
+<div class="page hidden" data-page="6">
+    <div class="day-header">
+        <div class="day-date-badge">
+            <i data-lucide="calendar-days"></i>
+            <span>30 December 2025</span>
+        </div>
+        <h2 class="day-number">Day 6</h2>
+        <p class="day-tagline">Not everything can be killed. But everything can be fought.</p>
+        <div class="day-header-ornament">
+            <div class="orn-line"></div>
+            <div class="orn-dot"></div>
+            <div class="orn-dot"></div>
+            <div class="orn-dot"></div>
+            <div class="orn-line"></div>
+        </div>
+    </div>
+ 
+    <div class="story-content">
+        <p>
+            <span class="first-letter">W</span>oh dive karta hua aaya — dono side mein kude. Sofa palat gaya, lamp toot gaya. Baibhav ne torch seedha entity par daali — roshni jab bhi usse touch karti, woh hiss karke ek second ke liye peeche khichta. Sirf ek second. Phir woh wapas aata. <span class="creepy">Bada. Faster. Zyada angry.</span> Nandini ne Myra ka darwaza speed mein lock kiya — woh safe thi. Abhi sirf yeh do the. Aur yeh cheez.
+        </p>
+ 
+        <p>
+            Tab entity ne kuch aisa kiya jo unhe expect nahi tha — <span class="creepy">usne apni shape change ki.</span> Ek second mein woh 7-foot ka shadow tha, agla second mein woh bilkul <span class="highlight">Baibhav</span> ki tarah dikhne laga. Same height, same jacket, same face. Do Baibhav. Ek real, ek entity. Nandini ki torch haath mein ruk gayi. Tab usne notice kiya — real Baibhav ki jacket ki left sleeve par ek purani torn pocket thi. Entity wali copy mein woh smooth tha. <span class="highlight">Bahut perfect.</span> Nandini ne beam seedha entity ki aankhon par maari — woh wapas apni original form mein aa gaya. Gussa tha.
+        </p>
+ 
+        <p>
+            "Tune kaha tha yeh Chhaya Praani hai," Nandini ne kaha. "Chhaya Praani copy nahi karta. Yeh kuch aur hai." Baibhav ruka — aur tab, <span class="creepy">bina kisi ke haath ke, diary ke pages khud palte huye khul gaye.</span> Ek chipke hue, kabhi na khule panne par ruk gaye. Bade letters mein likha tha — <span class="creepy"><b>VIKRAAL.</b></span> Neeche alag handwriting mein: <i>"Yeh Chhaya Praani nahi — yeh Vikraal hai. Iska koi fixed form nahi. Yeh doosri entities ki copy karke attack karta hai taaki tum hamesha galat enemy se larte raho."</i> Baibhav ka chehra white ho gaya. Yeh handwriting uski nahi thi. <span class="highlight">"Yeh Deepak bhaiya ki writing hai,"</span> woh bola — awaaz ek baar thoosi. "Do saal pehle woh ek raat suddenly chale gaye. 19 saal ke the. Yeh diary unki thi. Tabse main research kar raha hoon."
+        </p>
+ 
+        <p>
+            Nandini ne pages scroll kiye — notes, sketches, entity ke forms — par ek cheez kahin nahi thi. <span class="creepy">Koi solution nahi.</span> Sirf ek line thi — <i>"Rasta wahan hai jahan yeh nahi pohuunch sakta."</i> Dono ek second ruke — phir ek hi waqt mein dono ko samajh aaya. Deepak akele the. <span class="highlight">Yeh dono nahi the.</span> Entity roshni se slow hota tha, real naam se freeze hota tha — do second ki window. Bas itni. Nandini page ready pakde, Baibhav torch. Teen. Do. Ek — <span class="highlight">page seedha entity ke saamne.</span> Woh freeze hua. Beam blast hui. Entity ne ek toota hua, ganda sound nikala — <span class="creepy">aur kaale dhuyen mein dissolve ho gaya.</span> Colony ekdam normal thi. Koi nahi jaaga. Jaise kuch hua hi nahi.
+        </p>
+ 
+        <p>
+            Dono ki saansein tez thi. Lights sab on thi. Ghar normal tha. <span class="highlight">"Khatam ho gaya,"</span> Baibhav ne kaha — aur genuinely lag bhi raha tha. Diary table par rakh di. Nandini ne ek lambi saans li.
+        </p>
+ 
+        <p>
+            Par tab — table par rakhi diary <span class="creepy">khud-ba-khud phir se khul gayi.</span> Ek bilkul blank page par. Letters slowly, ek ek karke, andar se upar aane lage — <span class="creepy">jaise koi liquid andar se skin ke through push kar raha ho:</span>
+        </p>
+ 
+        <p>
+            <span class="creepy"><i>"Tum dono ne jo destroy kiya... woh main nahi tha."</i></span>
+        </p>
+ 
+        <p>
+            <span class="highlight">Aur poore ghar ki lights ek baar phir bujh gayin.</span>
+        </p>
+    </div>
+
+    <!-- Reader Feedback -->
+    <div class="reader-feedback" data-page-id="day6">
+        <div class="feedback-header">
+            <i data-lucide="message-circle"></i>
+            <h3>Readers' Corner</h3>
+        </div>
+        <div class="feedback-name-gate">
+            <label>Enter your name to join the conversation</label>
+            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+        </div>
+        <div class="feedback-form">
+            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+            <div class="feedback-tabs">
+                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+            </div>
+            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+        </div>
+        <div class="feedback-list"></div>
+    </div>
+</div>
 
                 <!-- DAY 7 -->
                 <div class="page hidden" data-page="7">
@@ -1080,31 +1883,62 @@
                             <div class="orn-line"></div>
                         </div>
                     </div>
+
                     <div class="story-content">
                         <p>
                             <span class="first-letter">G</span>har mein sannata tha. Dono wall se lag ke farsh par baithe the — thake, kaanpte, par zinda. Baibhav ke haath ka khoon sukh chuka tha. Bahar raat abhi bhi thick thi. Kuch der ki khamoshi ke baad Nandini ne poochha — woh sawaal jo woh kai ghanton se rok rahi thi. "Deepak bhaiya... kya hua tha unke saath? Exactly." Baibhav ne ek lambi saans li. Aur is baar usne bataya.
                         </p>
+                        
                         <p>
-                            "Woh bhi exactly aise hi shuru hua tha. Raat ko awaazein, shadows, messages. Bhaiya ne mujhe kuch nahi bataya — woh akele carry karte rahe. Ek raat main unke kamre gaya toh darwaza andar se lock tha. Maine knock kiya — koi jawab nahi. Jab darwaza toda toh woh — " Baibhav ruka. Ek second. "Woh farsh par the. Koi mark nahi, koi reason nahi. Doctor log kehte rahe cardiac arrest. Main jaanta tha woh kya tha." Uski awaaz flat thi — woh flat hone ki koshish kar raha tha. Par Nandini ne dekha ki uske haath ki grip diary par kitni tight thi. "Tabse main dhoondh raha tha ki isko kaise khatam kiya jaaye. Isliye aaya tha tere paas. <span class="highlight">Yeh mera bhi revenge tha.</span>"
+                            "Woh bhi exactly aise hi shuru hua tha. Raat ko awaazein, shadows, messages. Bhaiya ne mujhe kuch nahi bataya — woh akele carry karte rahe. Ek raat main unke kamre gaya toh darwaza andar se lock tha. Maine knock kiya — koi jawab nahi. Jab darwaza toda toh woh — " Baibhav ruka. Ek second. "Woh farsh par the. Koi mark nahi, koi reason nahi. Doctor log kehte rahe cardiac arrest. Main jaanta tha woh kya tha." Uski awaaz flat thi — woh flat hone ki koshish kar raha tha. Par Nandini ne dekha ki uske haath ki grip diary par kitni tight thi. "Tabse main dhoondh raha tha ki isko kaise khatam kiya jaaye. Isliye aaya tha tere paas. Yeh mera bhi revenge tha."
                         </p>
+                        
                         <p>
-                            Nandini kuch bolne wali thi — tab diary khud palti. Tez. Pages ek ke baad ek flip hote rahe — jaise koi bahut gussa ho — aur ek bilkul blank page par ruk gaye. Koi writing nahi thi. Phir, dheere dheere, letters andar se upar aane lage — dark, thick, jaise koi unhe andar se kharoch raha ho:
+                            Nandini kuch bolne wali thi — tab diary khud palti. Tez. Pages ek ke baad ek flip hote rahe — jaise koi bahut angry ho — aur ek bilkul blank page par ruk gaye. Koi writing nahi thi. Phir, dheere dheere, letters andar se upar aane lage — dark, thick, jaise koi unhe andar se kharoch raha ho:
                         </p>
+                        
                         <p>
                             <span class="creepy" style="font-size: 1.5rem; letter-spacing: 5px; text-align: center; display: block; margin: 20px 0;">R — A — K — A — A — N</span>
                         </p>
+                        
                         <p>
-                            Aur tab woh aaya. Is baar woh kaala saya nahi tha. <span class="creepy">Solid tha. Physical tha.</span> <span class="highlight">8 foot.</span> Deep charcoal grey — jaise kisi ne insaani shape ko heavy dark stone se toda ho. Raakh si aankhein — par ab unme kuch aur tha. Intelligence. Aur amusement. Woh seedha Baibhav ke saamne aaya aur pehli baar usne awaaz nikali — <span class="creepy">gehra, vibrate karta, real.</span> <i>"Itne saalon mein pehli baar tum dono ne itna achha khela. Deepak bhi itna hi achha khela tha."</i> Ek pause. Phir ek slow, evil laugh. <span class="creepy">"Woh bhi isi farsh par tha jab main gaya tha."</span>
+                            Aur tab woh aaya. Is baar woh shadow nahi tha. Solid tha. Physical tha. <span class="highlight">8 foot</span>. Deep charcoal grey — jaise kisi ne insaani shape ko heavy dark stone se toda ho. Raakh si aankhein — par ab unme kuch aur tha. Intelligence. Aur amusement. Woh seedha Baibhav ke saamne aaya aur pehli baar usne awaaz nikali — gehra, vibrate karta, real. <span class="creepy">"Itne saalon mein pehli baar tum dono ne itna achha khela. Deepak bhi itna hi achha khela tha."</span> Ek pause. Phir ek slow, evil laugh. <span class="creepy">"Woh bhi isi farsh par tha jab main gaya tha."</span>
                         </p>
+                        
                         <p>
-                            Baibhav ka poora jism stiff ho gaya. <span class="highlight">RAKAAN</span> ne yeh intentionally kaha tha — provoke karna chahta tha. Toh usne exactly wahi kiya — ek solid push — Baibhav ek side mein gaya, Nandini doosri taraf corridor mein. Darwaza beech mein band ho gaya. <span class="creepy">Dono alag the.</span>
+                            Baibhav ka poora jism stiff ho gaya. <span class="highlight">RAKAAN</span> ne yeh intentionally kaha tha — provoke karna chahta tha. Toh usne exactly wahi kiya — ek solid push — Baibhav ek side mein gaya, Nandini doosri taraf corridor mein. Darwaza beech mein band ho gaya. Dono alag the.
                         </p>
+                        
                         <p>
-                            Corridor mein Nandini ke peeche RAKAAN ki heavy footsteps thi. Woh bhaagti rahi — <span class="creepy">woh har taraf tha.</span> Solid hone ki wajah se ab woh physically walls tod sakta tha. Living room mein Baibhav diary ke pages palat raha tha — tab RAKAAN ne seedha diary par haath maara. <span class="creepy">Pages jalte gaye — Deepak ke saare notes, saari research — sab kuch.</span> Woh apna naam us diary se mitana chahta tha. Baibhav ne sirf ek cheez pakad li — adha jala hua woh panna — jisme abhi bhi <span class="highlight">RAKAAN</span> readable tha. <i>Naam hi weapon hai</i> — Deepak bhaiya ne yeh baar baar underline kiya tha. Par naam lene ke baad karna kya hai — woh abhi tak nahi jaanta tha.
+                            Corridor mein Nandini ke peeche RAKAAN ki heavy footsteps thi. Woh bhaagti rahi — woh har taraf tha. Solid hone ki wajah se ab woh physically walls tod sakta tha. Living room mein Baibhav diary ke pages palat raha tha — tab RAKAAN ne seedha diary par haath maara. Pages jalte gaye — Deepak ke saare notes, saari research — sab kuch. Woh apna naam us diary se mitana chahta tha. Baibhav ne sirf ek cheez pakad li — adha jala hua woh panna — jisme abhi bhi <span class="highlight">RAKAAN</span> readable tha. Naam hi weapon hai — Deepak bhaiya ne yeh baar baar underline kiya tha. Par naam lene ke baad karna kya hai — woh abhi tak nahi jaanta tha.
                         </p>
+                        
                         <p>
-                            RAKAAN ne living room mein wapas entry ki — aur ek powerful strike mein Baibhav seedha floor par aa gaya. <span class="creepy">Hard.</span> Sar deewar se laga. Aankhein band huyin — aur bahar se Nandini ki awaaz aa rahi thi, uska naam le rahi thi — baar baar — <span class="creepy">darwaza peet ke.</span>
+                            RAKAAN ne living room mein wapas entry ki — aur ek powerful strike mein Baibhav seedha floor par aa gaya. <span class="creepy">Hard.</span> Sar deewar se laga. Aankhein band huyin — aur bahar se Nandini ki awaaz aa rahi thi, uska naam le rahi thi — baar baar — darwaza peet ke.
                         </p>
+                    </div>
+
+                    <!-- Reader Feedback -->
+                    <div class="reader-feedback" data-page-id="day7">
+                        <div class="feedback-header" ondblclick="unlockAdmin()">
+                            <i data-lucide="message-circle"></i>
+                            <h3 style="cursor: default; user-select: none;">Readers' Corner</h3>
+                        </div>
+                        <div class="feedback-name-gate">
+                            <label>Enter your name to join the conversation</label>
+                            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+                            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+                        </div>
+                        <div class="feedback-form">
+                            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+                            <div class="feedback-tabs">
+                                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+                            </div>
+                            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+                            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+                        </div>
+                        <div class="feedback-list"></div>
                     </div>
                 </div>
 
@@ -1125,34 +1959,66 @@
                             <div class="orn-line"></div>
                         </div>
                     </div>
+
                     <div class="story-content">
                         <p>
-                            <span class="first-letter">A</span>ankhein band thin — aur Baibhav ek khaali jagah mein tha. Na ghar, na raat. Bas ek familiar corridor — <span class="highlight">aur door ke paas Deepak bhaiya khade the.</span> Same face. Same smile jo photos mein tha. <i>"Tune sab kuch try kiya. Mujhse zyada kiya."</i> "Main isse maar nahi pa raha hoon, bhai." <i>"Maarna nahi hai. Rokna hai. Yeh solid form mein apne aas-paas ke darkness se energy leta hai. Roshni temporary hoti hai. Par agar us darkness ko ek closed circle mein — aag se seal kar do — toh yeh andar hi andar khatam ho jaayega. Apni hi energy se."</i> Ek pause. Phir — <span class="highlight"><i>"Tera waqt nahi aaya. Jaao. Usse bachao."</i></span>
+                            <span class="first-letter">A</span>ankhein band thin — aur Baibhav ek khaali jagah mein tha. Na ghar, na raat. Bas ek familiar corridor — aur door ke paas Deepak bhaiya khade the. Same face. Same smile jo photos mein tha. "Tune sab kuch try kiya. Mujhse zyada kiya." "Main isse maar nahi pa raha hoon, bhai." "Maarna nahi hai. Rokna hai. Yeh entity solid form mein apne aas-paas ke darkness se energy leti hai. Roshni temporary hoti hai. Par agar us darkness ko ek closed circle mein — aag se seal kar do — toh yeh andar hi andar khatam ho jaayegi. Apni hi energy se." Ek pause. Phir — "Tera waqt nahi aaya. Jaao. Usse bachao."
                         </p>
+                        
                         <p>
                             Baibhav ki aankhein khuli. Sar se khoon aa raha tha. Bahar Nandini ki awaaz itni desperate thi, itni broken thi — ki woh ek second bhi nahi ruka. Darwaza toda. Andar gaya.
                         </p>
+                        
                         <p>
-                            <span class="highlight">RAKAAN</span> Nandini ke bilkul upar tha — solid haath utha chuka tha. Baibhav ne poori taaqat se chillaya — <span class="creepy"><b>"RAKAAN!"</b></span> RAKAAN ek split second ke liye freeze hua — apna control khoya. Woh ek second kaafi tha. Baibhav ne kitchen se jo mila — tray, table cloth, lighter — uthaya aur <span class="highlight">RAKAAN ke charon taraf ek circle mein rakh ke aag laga di.</span> RAKAAN ne realize kiya — par bahut der ho chuki thi. Woh circle ke andar tha.
+                            <span class="highlight">RAKAAN</span> Nandini ke bilkul upar tha — solid haath utha chuka tha. Baibhav ne poori taaqat se chillaya — <span class="creepy">"RAKAAN!"</span> Entity ek split second ke liye freeze hua — apna control khoya. Woh ek second kaafi tha. Baibhav ne kitchen se jo mila — tray, table cloth, lighter — uthaya aur entity ke charon taraf ek circle mein rakh ke aag laga di. RAKAAN ne realize kiya — par bahut der ho chuki thi. Woh circle ke andar tha.
                         </p>
+                        
                         <p>
-                            <span class="creepy">Woh chillaya.</span> Solid form flicker karne laga — aankhein jo hamesha confident thi, un mein pehli baar darr tha. Woh circle todne ki koshish karta raha — par <span class="highlight">aag real thi, circle seal tha</span>, aur RAKAAN ki apni dark energy uske against ho gayi. Dheere dheere woh chota hone laga. Aur chota. <span class="highlight">Ek lambi, final hiss — aur woh gaya.</span> Sirf raakh. Jo ek second mein hawa mein ghul gayi.
+                            Woh chillaya. Solid form flicker karne laga — aankhein jo hamesha confident thi, un mein pehli baar darr tha. Woh circle todne ki koshish karta raha — par <span class="highlight">aag real thi, circle seal tha</span>, aur entity ki apni dark energy uske against ho gayi. Dheere dheere woh chota hone laga. Aur chota. Ek lambi, final hiss — aur woh gaya. Sirf raakh. Jo ek second mein hawa mein ghul gayi.
                         </p>
+                        
                         <p>
-                            Bahar aasmaan ki kaali neend dheere dheere tooti. <span class="highlight">31 December ki subah.</span> Pehli dhoop khidki se andar aayi — peeli, warm, real. <span class="highlight">Priya</span> safe thi. Colony shant thi. Duniya ko kuch pata nahi tha.
+                            Bahar aasmaan ki kaali neend dheere dheere tooti. <span class="highlight">31 December ki subah.</span> Pehli dhoop khidki se andar aayi — peeli, warm, real. Myra safe thi. Colony shant thi. Duniya ko kuch pata nahi tha.
                         </p>
+                        
                         <p>
                             Nandini seedha Baibhav ke paas gayi aur usse kaskar hug kar liya — woh kaanp rahi thi ya woh, dono ko pata nahi tha. Kuch der baad Nandini ne kaha — halki, bina kisi drama ke — "Jab tu gir gaya tha... main bahut darr gayi thi. Main nahi chahti thi ki tu—" Uski awaaz ruki. Baibhav ne kuch nahi kaha. Par usne wapas hug kiya. Aur woh jawab kaafi tha.
                         </p>
+                        
                         <p>
-                            Shaam ko colony mein <span class="highlight">New Year ke patakhe shuru ho gaye.</span> Mummy wapas aa gayi thi. <span class="highlight">Priya</span> chhatt par daud gayi. Chai bani. Baibhav bhi tha — sofa par, haath pe bandage, ek genuinely halka chehra. Raat ke theek <span class="highlight">12 baje</span> — jab shor tha, patakhe the, hasi thi — Baibhav chhatt ki railing se aasmaan dekh raha tha. Nandini uske paas aayi. Dono kuch nahi bole. Kahin door ek tara thoda zyada chamka — ya shayad Nandini ka dil sochna chahta tha ki woh <span class="highlight">Deepak bhaiya</span> the. Baibhav dheere se muskuraya — woh wali muskaan jo pure mahine mein pehli baar real lagti thi.
+                            Shaam ko colony mein New Year ke patakhe shuru ho gaye. Mummy wapas aa gayi thi. Myra chhatt par daud gayi. Chai bani. Baibhav bhi tha — sofa par, haath pe bandage, ek genuinely halka chehra. Raat ke theek 12 baje — jab shor tha, patakhe the, hasi thi — Baibhav chhatt ki railing se aasmaan dekh raha tha. Nandini uske paas aayi. Dono kuch nahi bole. Kahin door ek tara thoda zyada chamka — ya shayad Nandini ka dil sochna chahta tha ki woh Deepak bhaiya the. Baibhav dheere se muskuraya — woh wali muskaan jo pure mahine mein pehli baar real lagti thi.
                         </p>
+                        
                         <p>
                             <span class="highlight">"Happy New Year, Nandini."</span>
                         </p>
+                        
                         <p>
                             Aur is baar — usne seedha naam liya.
                         </p>
+                    </div>
+
+                    <!-- Reader Feedback -->
+                    <div class="reader-feedback" data-page-id="day8">
+                        <div class="feedback-header" ondblclick="unlockAdmin()">
+                            <i data-lucide="message-circle"></i>
+                            <h3 style="cursor: default; user-select: none;">Readers' Corner</h3>
+                        </div>
+                        <div class="feedback-name-gate">
+                            <label>Enter your name to join the conversation</label>
+                            <input type="text" class="feedback-name-input" placeholder="Your name..." maxlength="30">
+                            <button class="feedback-enter-btn" onclick="enterFeedback(this)">Enter</button>
+                        </div>
+                        <div class="feedback-form">
+                            <div class="feedback-user-badge"><i data-lucide="user"></i><span class="badge-name"></span></div>
+                            <div class="feedback-tabs">
+                                <button class="feedback-tab active" data-type="comment" onclick="switchTab(this)">Comment</button>
+                                <button class="feedback-tab" data-type="suggestion" onclick="switchTab(this)">Suggest Change</button>
+                            </div>
+                            <textarea class="feedback-input-area" placeholder="Share your thoughts on this chapter..."></textarea>
+                            <button class="feedback-submit-btn" onclick="submitFeedback(this)">Post</button>
+                        </div>
+                        <div class="feedback-list"></div>
                     </div>
                 </div>
 
@@ -1165,7 +2031,7 @@
                         <h2 class="continued-title">The End</h2>
                         <p class="continued-text">Thank you for reading.</p>
                         <p style="font-family: 'Cormorant Garamond', serif; color: var(--text-secondary); font-style: italic; font-size: 1rem; max-width: 400px; line-height: 1.8;">
-                            Sometimes the greatest monsters we face aren't just in the darkness — they are shadows formed by grief, fear, and untold secrets. But as long as there is love, loyalty, and someone who remembers your true name, no darkness can last forever.
+                            Sometimes the greatest monsters we face aren't just in the darkness; they are shadows formed by grief, fear, and untold secrets. But as long as there is love, loyalty, and someone who remembers your true name, no darkness can last forever. 
                             <br><br>
                             This concludes Nandini's story. May your own nights be filled with stars, not shadows.
                         </p>
@@ -1180,7 +2046,7 @@
             </div>
         </div>
 
-        <!-- PAGE NAVIGATION -->
+        <!-- ═══════ PAGE NAVIGATION ═══════ -->
         <nav class="page-nav" id="pageNav">
             <button class="nav-btn" id="prevBtn" onclick="prevPage()" disabled>
                 <i data-lucide="chevron-left"></i>
@@ -1193,22 +2059,42 @@
             </button>
         </nav>
 
-        <!-- FOOTER -->
+        <!-- ═══════ FOOTER ═══════ -->
         <footer class="story-footer">
             <div class="footer-ornament">
                 <div class="fo-line"></div>
                 <i data-lucide="heart"></i>
                 <div class="fo-line"></div>
             </div>
-            <p class="footer-text">A STORY WRITTEN WITH LOVE &amp; A LITTLE FEAR</p>
+            <p class="footer-text">A STORY WRITTEN WITH LOVE & A LITTLE FEAR</p>
             <p class="footer-credit">~ for Nandini, always ~</p>
         </footer>
 
     </div>
 
+    <!-- ═══════ JAVASCRIPT ═══════ -->
+    <!-- Firebase core & Firestore SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    
     <script>
+        // ── Initialize Firebase ──
+        const firebaseConfig = {
+            apiKey: "AIzaSyDRULr3y_r7cCzvaf8KhnxqElLz8AthdYc",
+            authDomain: "story-b76af.firebaseapp.com",
+            projectId: "story-b76af",
+            storageBucket: "story-b76af.firebasestorage.app",
+            messagingSenderId: "900910456848",
+            appId: "1:900910456848:web:738e6df8289c59b9e4aa95",
+            measurementId: "G-CYMJJ5CK09"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ── Initialize Lucide Icons ──
         lucide.createIcons();
 
+        // ── Page Management ──
         let currentPage = 0;
         const pages = document.querySelectorAll('.page');
         const totalPages = pages.length;
@@ -1216,6 +2102,7 @@
         const nextBtn = document.getElementById('nextBtn');
         const book = document.getElementById('book');
 
+        // Build page indicators
         const indicatorContainer = document.getElementById('pageIndicator');
         for (let i = 0; i < totalPages; i++) {
             const dot = document.createElement('div');
@@ -1237,55 +2124,92 @@
 
         function goToPage(target) {
             if (target === currentPage || target < 0 || target >= totalPages) return;
+
             book.classList.add('page-turning');
+
             pages.forEach((page, i) => {
                 page.classList.remove('active', 'turned', 'hidden');
-                if (i < target) page.classList.add('turned');
-                else if (i === target) page.classList.add('active');
-                else page.classList.add('hidden');
+                if (i < target) {
+                    page.classList.add('turned');
+                } else if (i === target) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.add('hidden');
+                }
             });
+
             currentPage = target;
             updateIndicators();
             updateButtons();
-            setTimeout(() => book.classList.remove('page-turning'), 800);
+
+            setTimeout(() => {
+                book.classList.remove('page-turning');
+            }, 800);
         }
 
         function nextPage() {
-            if (currentPage < totalPages - 1) goToPage(currentPage + 1);
+            if (currentPage < totalPages - 1) {
+                goToPage(currentPage + 1);
+            }
         }
 
         function prevPage() {
-            if (currentPage > 0) goToPage(currentPage - 1);
+            if (currentPage > 0) {
+                goToPage(currentPage - 1);
+            }
         }
 
+        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextPage(); }
-            else if (e.key === 'ArrowLeft') { e.preventDefault(); prevPage(); }
+            const tag = document.activeElement.tagName.toLowerCase();
+            if (tag === 'input' || tag === 'textarea' || tag === 'button') return;
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextPage();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevPage();
+            }
         });
 
+        // ── Ghost Particles ──
         function createParticle() {
             const container = document.getElementById('particlesContainer');
             const particle = document.createElement('div');
             particle.classList.add('ghost-particle');
+
             const types = ['type-orb', 'type-ember', 'type-mist'];
             particle.classList.add(types[Math.floor(Math.random() * types.length)]);
+
             const size = Math.random() * 20 + 6;
             particle.style.width = size + 'px';
             particle.style.height = size + 'px';
             particle.style.left = Math.random() * 100 + '%';
             particle.style.bottom = '-20px';
+
             const drift = (Math.random() - 0.5) * 200;
             particle.style.setProperty('--drift', drift + 'px');
+
             const duration = Math.random() * 10 + 8;
             particle.style.animationDuration = duration + 's';
             particle.style.animationDelay = Math.random() * 3 + 's';
+
             container.appendChild(particle);
-            setTimeout(() => particle.remove(), (duration + 3) * 1000);
+
+            setTimeout(() => {
+                particle.remove();
+            }, (duration + 3) * 1000);
         }
 
+        // Create particles periodically
         setInterval(createParticle, 800);
-        for (let i = 0; i < 8; i++) setTimeout(createParticle, i * 300);
 
+        // Create initial batch
+        for (let i = 0; i < 8; i++) {
+            setTimeout(createParticle, i * 300);
+        }
+
+        // ── 3D Wireframe Shapes on Canvas ──
         const canvas = document.getElementById('shapesCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -1296,6 +2220,7 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
+        // 3D math helpers
         function rotateX(point, angle) {
             const cos = Math.cos(angle), sin = Math.sin(angle);
             return [point[0], point[1] * cos - point[2] * sin, point[1] * sin + point[2] * cos];
@@ -1313,24 +2238,28 @@
             return [cx + point[0] * scale, cy + point[1] * scale];
         }
 
+        // Shape definitions (vertices + edges)
         function getCubeGeometry(s) {
             const h = s / 2;
             const v = [[-h,-h,-h],[h,-h,-h],[h,h,-h],[-h,h,-h],[-h,-h,h],[h,-h,h],[h,h,h],[-h,h,h]];
             const e = [[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
             return { vertices: v, edges: e };
         }
+
         function getPyramidGeometry(s) {
             const h = s / 2;
             const v = [[0,-h*1.2,0],[-h,h,-h],[h,h,-h],[h,h,h],[-h,h,h]];
             const e = [[0,1],[0,2],[0,3],[0,4],[1,2],[2,3],[3,4],[4,1]];
             return { vertices: v, edges: e };
         }
+
         function getOctahedronGeometry(s) {
             const h = s / 2;
             const v = [[0,-h,0],[h,0,0],[0,0,h],[-h,0,0],[0,0,-h],[0,h,0]];
             const e = [[0,1],[0,2],[0,3],[0,4],[5,1],[5,2],[5,3],[5,4],[1,2],[2,3],[3,4],[4,1]];
             return { vertices: v, edges: e };
         }
+
         function getDiamondGeometry(s) {
             const h = s / 2;
             const v = [[0,-h*1.5,0],[h,0,0],[0,0,h],[-h,0,0],[0,0,-h],[0,h*0.6,0]];
@@ -1338,14 +2267,16 @@
             return { vertices: v, edges: e };
         }
 
+        // Color palette for shapes
         const shapeColors = [
-            { stroke: 'rgba(196, 30, 58, 0.5)',   glow: 'rgba(196, 30, 58, 0.15)' },
-            { stroke: 'rgba(183, 110, 121, 0.5)',  glow: 'rgba(183, 110, 121, 0.12)' },
-            { stroke: 'rgba(140, 80, 160, 0.45)',  glow: 'rgba(140, 80, 160, 0.1)' },
-            { stroke: 'rgba(201, 169, 110, 0.45)', glow: 'rgba(201, 169, 110, 0.1)' },
-            { stroke: 'rgba(212, 160, 160, 0.5)',  glow: 'rgba(212, 160, 160, 0.12)' },
+            { stroke: 'rgba(196, 30, 58, 0.5)',  glow: 'rgba(196, 30, 58, 0.15)' },
+            { stroke: 'rgba(183, 110, 121, 0.5)', glow: 'rgba(183, 110, 121, 0.12)' },
+            { stroke: 'rgba(140, 80, 160, 0.45)', glow: 'rgba(140, 80, 160, 0.1)' },
+            { stroke: 'rgba(201, 169, 110, 0.45)',glow: 'rgba(201, 169, 110, 0.1)' },
+            { stroke: 'rgba(212, 160, 160, 0.5)', glow: 'rgba(212, 160, 160, 0.12)' },
         ];
 
+        // Create shape objects
         const shapes3D = [];
         const geometryTypes = [getCubeGeometry, getPyramidGeometry, getOctahedronGeometry, getDiamondGeometry];
 
@@ -1372,18 +2303,26 @@
 
         function drawShapes() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
             for (const shape of shapes3D) {
+                // Update rotation
                 shape.rotX += shape.speedX;
                 shape.rotY += shape.speedY;
                 shape.rotZ += shape.speedZ;
+
+                // Gentle drift
                 shape.x += shape.driftX;
                 shape.y += shape.driftY;
+
+                // Wrap around screen
                 if (shape.x < -60) shape.x = canvas.width + 60;
                 if (shape.x > canvas.width + 60) shape.x = -60;
                 if (shape.y < -60) shape.y = canvas.height + 60;
                 if (shape.y > canvas.height + 60) shape.y = -60;
+
                 const { vertices, edges } = shape.geo;
                 const projected = [];
+
                 for (const v of vertices) {
                     let p = [...v];
                     p = rotateX(p, shape.rotX);
@@ -1391,6 +2330,8 @@
                     p = rotateZ(p, shape.rotZ);
                     projected.push(project(p, shape.x, shape.y, 300));
                 }
+
+                // Draw glow
                 ctx.strokeStyle = shape.color.glow;
                 ctx.lineWidth = shape.lineWidth + 3;
                 ctx.beginPath();
@@ -1399,6 +2340,8 @@
                     ctx.lineTo(projected[b][0], projected[b][1]);
                 }
                 ctx.stroke();
+
+                // Draw wireframe
                 ctx.strokeStyle = shape.color.stroke;
                 ctx.lineWidth = shape.lineWidth;
                 ctx.beginPath();
@@ -1408,20 +2351,31 @@
                 }
                 ctx.stroke();
             }
+
             requestAnimationFrame(drawShapes);
         }
+
         drawShapes();
 
+        // ── Set Dynamic Book Height ──
         function updateBookHeight() {
             const activePage = document.querySelector('.page.active');
-            if (activePage) book.style.minHeight = activePage.scrollHeight + 'px';
+            if (activePage) {
+                book.style.minHeight = activePage.scrollHeight + 'px';
+            }
         }
 
+        // Update on page change and resize
         const observer = new MutationObserver(updateBookHeight);
-        pages.forEach(page => observer.observe(page, { attributes: true, attributeFilter: ['class'] }));
+        pages.forEach(page => {
+            observer.observe(page, { attributes: true, attributeFilter: ['class'] });
+        });
         window.addEventListener('resize', updateBookHeight);
+        
+        // Initial height
         setTimeout(updateBookHeight, 100);
 
+        // ── Touch/Swipe support ──
         let touchStartX = 0;
         let touchEndX = 0;
 
@@ -1431,12 +2385,199 @@
 
         document.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+
+        function handleSwipe() {
             const diff = touchStartX - touchEndX;
             if (Math.abs(diff) > 50) {
-                if (diff > 0) nextPage();
-                else prevPage();
+                if (diff > 0) {
+                    nextPage(); // Swipe left = next
+                } else {
+                    prevPage(); // Swipe right = prev
+                }
             }
-        }, false);
+        }
+        // ── Reader Feedback System ──
+        let currentFeedbackUser = localStorage.getItem('storyFeedbackUser') || '';
+        let isAdmin = localStorage.getItem('storyAdminMode') === 'true';
+
+        // Hidden Developer Admin Mode
+        function unlockAdmin() {
+            if (isAdmin) {
+                if(confirm("Turn off Developer Mode?")) {
+                    isAdmin = false;
+                    localStorage.removeItem('storyAdminMode');
+                    location.reload();
+                }
+                return;
+            }
+            const pwd = prompt("Developer access — Enter password:");
+            // Password is 'storyadmin'
+            if (pwd && btoa(pwd) === 'c3RvcnlhZG1pbg==') {
+                isAdmin = true;
+                localStorage.setItem('storyAdminMode', 'true');
+                alert("Developer Mode Unlocked. You can now delete any comments.");
+                location.reload();
+            } else if (pwd) {
+                alert("Incorrect password.");
+            }
+        }
+
+        // Delete comment from Firestore
+        function deleteComment(pageId, docId) {
+            if (!isAdmin) return;
+            if (confirm("Are you sure you want to permanently delete this comment?")) {
+                db.collection("comments_" + pageId).doc(docId).delete().then(() => {
+                    console.log("Deleted");
+                }).catch(err => {
+                    console.error("Error deleting:", err);
+                    alert("Failed to delete. Check console.");
+                });
+            }
+        }
+
+        // Load saved comments from Firebase Firestore
+        function loadFeedback(pageId, listEl) {
+            db.collection("comments_" + pageId)
+              .orderBy("timestamp", "desc")
+              .onSnapshot((snapshot) => {
+                  listEl.innerHTML = '';
+                  if (snapshot.empty) {
+                      listEl.innerHTML = '<div class="feedback-empty">No comments yet — be the first to share your thoughts!</div>';
+                      return;
+                  }
+                  snapshot.forEach((doc) => {
+                      const item = doc.data();
+                      item.id = doc.id; // Store ID for admin deletion
+                      listEl.innerHTML += buildFeedbackItem(item, pageId);
+                  });
+                  // Timeout ensures elements are added before initializing icons
+                  setTimeout(() => lucide.createIcons(), 0);
+              }, (error) => {
+                  console.error("Error loading comments: ", error);
+                  listEl.innerHTML = '<div class="feedback-empty">Error loading comments. Check permissions in Firebase Console.</div>';
+              });
+        }
+
+        function buildFeedbackItem(item, pageId) {
+            const typeLabel = item.type === 'suggestion' ? 'Suggestion' : 'Comment';
+            const typeClass = item.type === 'suggestion' ? ' suggestion' : '';
+            
+            const deleteBtnHtml = isAdmin ? 
+                `<button class="admin-delete-btn" onclick="deleteComment('${pageId}', '${item.id}')" title="Delete Comment">
+                    <i data-lucide="trash-2"></i>
+                </button>` : '';
+
+            return `<div class="feedback-item">
+                <div class="feedback-item-header">
+                    <div class="feedback-item-header-left">
+                        <div class="feedback-item-author"><i data-lucide="user"></i> ${escapeHtml(item.name)}</div>
+                        <span class="feedback-item-type${typeClass}">${typeLabel}</span>
+                    </div>
+                    ${deleteBtnHtml}
+                </div>
+                <div class="feedback-item-text">${escapeHtml(item.text)}</div>
+                <div class="feedback-item-time">${item.time}</div>
+            </div>`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function enterFeedback(btn) {
+            const section = btn.closest('.reader-feedback');
+            const input = section.querySelector('.feedback-name-input');
+            const name = input.value.trim();
+            if (!name) { input.style.borderColor = 'rgba(196,30,58,0.6)'; return; }
+            currentFeedbackUser = name;
+            localStorage.setItem('storyFeedbackUser', name);
+
+            // Activate all feedback forms across pages
+            document.querySelectorAll('.reader-feedback').forEach(fb => {
+                fb.querySelector('.feedback-name-gate').style.display = 'none';
+                const form = fb.querySelector('.feedback-form');
+                form.classList.add('active');
+                form.querySelector('.badge-name').textContent = name;
+            });
+
+            // Re-init lucide for new icons
+            lucide.createIcons();
+
+            // Load comments for this page
+            const pageId = section.getAttribute('data-page-id');
+            loadFeedback(pageId, section.querySelector('.feedback-list'));
+        }
+
+        function switchTab(tabBtn) {
+            const section = tabBtn.closest('.reader-feedback');
+            section.querySelectorAll('.feedback-tab').forEach(t => t.classList.remove('active'));
+            tabBtn.classList.add('active');
+            const type = tabBtn.getAttribute('data-type');
+            const textarea = section.querySelector('.feedback-input-area');
+            textarea.placeholder = type === 'suggestion'
+                ? 'Suggest a change for this chapter...'
+                : 'Share your thoughts on this chapter...';
+        }
+
+        function submitFeedback(btn) {
+            const section = btn.closest('.reader-feedback');
+            const textarea = section.querySelector('.feedback-input-area');
+            const text = textarea.value.trim();
+            if (!text) return;
+
+            const activeTab = section.querySelector('.feedback-tab.active');
+            const type = activeTab.getAttribute('data-type');
+            const pageId = section.getAttribute('data-page-id');
+
+            const now = new Date();
+            const time = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) + ' · ' + now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+            // Visual feedback while posting
+            const originalPlaceholder = textarea.placeholder;
+            textarea.value = '';
+            textarea.placeholder = "Posting to cloud...";
+            btn.disabled = true;
+
+            // Submit to Firebase
+            db.collection("comments_" + pageId).add({
+                name: currentFeedbackUser,
+                text: text,
+                type: type,
+                time: time,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                textarea.placeholder = originalPlaceholder;
+                btn.disabled = false;
+                // No need to manually reload, onSnapshot triggers loadFeedback
+            }).catch(err => {
+                console.error("Error adding document: ", err);
+                textarea.placeholder = "Failed to post. (Check Firestore rules)";
+                btn.disabled = false;
+            });
+        }
+
+        // On page load: restore user session
+        if (currentFeedbackUser) {
+            document.querySelectorAll('.reader-feedback').forEach(fb => {
+                fb.querySelector('.feedback-name-gate').style.display = 'none';
+                const form = fb.querySelector('.feedback-form');
+                form.classList.add('active');
+                form.querySelector('.badge-name').textContent = currentFeedbackUser;
+            });
+        }
+
+        // Load all feedback lists on init
+        document.querySelectorAll('.reader-feedback').forEach(fb => {
+            const pageId = fb.getAttribute('data-page-id');
+            loadFeedback(pageId, fb.querySelector('.feedback-list'));
+        });
+
+        // Re-init all lucide icons for dynamically added ones
+        lucide.createIcons();
     </script>
 
 </body>
